@@ -1,0 +1,529 @@
+@import "../../variables.scss";
+
+.dash-board {
+  padding-top: 70px;
+}
+.movielist-component {
+  width:90%;
+  margin: 0 auto
+}
+
+.movie-list {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  margin-top: 20px;
+  justify-content: space-evenly;
+  // @media screen and (max-width: 500px) {
+  //   padding-right: 10px;
+  //   margin-bottom: 50px;
+  // }
+}
+
+.movie-card {
+  text-align: left;
+  width: 160px;
+  // margin: 16px 0 16px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  margin-bottom: 30px;
+  height: 270px;
+  p {
+    margin: 5px 0 0 0;
+  }
+
+  @media screen and (min-width: 800px) {
+    margin-right: 2px;
+    width: 310px;
+    height: 400px;
+  }
+}
+
+// .movie-title-disable {
+// margin: 0 0 15px 0;
+// padding: 0 0 0 0;
+// color: $disabled_text;
+// color: $mid_text;
+// }
+
+.movie-title-disable {
+  margin: 0 0 15px 0;
+  padding: 0 0 0 0;
+  color: $disabled_text;
+}
+
+.movie-img-enable {
+  // box-shadow: -1px 1px 10px gray;
+  border-radius: 5px;
+  padding-top: 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // justify-content: center;
+  background: $enabled_action_button;
+  height: 254px;
+  @media screen and (min-width: 800px) {
+    height: 367px;
+  }
+
+  // width: 155px;
+  // height: 235px;
+  // opacity: 1;
+  // margin-bottom: 0px;
+  img {
+    width: 154px;
+    height: 210px;
+    border-radius: 4px;
+    filter: grayscale(80%);
+    // filter: blur(1px);
+    @media screen and (min-width: 800px) {
+      width: 290px;
+      height: 340px;
+    }
+  }
+  p {
+    margin: 6px 0 0 0;
+    font-size: 13px;
+  }
+}
+
+.movie-img-disable {
+  // box-shadow: -1px 1px 10px gray;
+  height: 246px;
+  // width: 50px;
+  // height: 235px;
+  // opacity: 1;
+  // margin-bottom: 0px;
+  // border: 4px $pure_black solid;
+  @media screen and (min-width: 800px) {
+    height: 370px;
+  }
+
+  img {
+    width: 160px;
+    height: 246px;
+    @media screen and (min-width: 800px) {
+      width: 300px;
+      height: 360px;
+    }
+  }
+}
+
+// .red-box {
+//   border: 4px $enabled_action_button solid;
+//   border-radius: 5px;
+// }
+
+// Search Form By Movie name
+.searchForm {
+  input {
+    font-size: 16px;
+    outline: none;
+    border: none;
+    height: 20px;
+    width: 97%;
+    border-radius: 6px;
+    padding: 6px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    // @media screen and (max-width: 500px) {
+    //   width: 87%;
+    // }
+
+    @media screen and (min-width: 800px) {
+      margin-left: 0;
+      font-size: 12px;
+    }
+  }
+
+  @media screen and (min-width: 800px) {
+    text-align: start;
+    width: 28%;
+  }
+}
+
+// Zipcode Search Form
+.zipsearch {
+  input {
+    width: 97%;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    height: 20px;
+    border-radius: 6px;
+    padding: 6px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    // @media screen and (max-width: 500px) {
+    //   width: 87%;
+    // }
+
+    @media screen and (min-width: 800px) {
+      margin-left: 0;
+      font-size: 12px;
+    }
+  }
+
+  @media screen and (min-width: 800px) {
+    text-align: start;
+    width: 28%;
+  }
+}
+
+.next-button-disable {
+  background-color: $disabled_action_button;
+  position: fixed;
+  bottom: 15px;
+  right: 0%;
+  width: 75%;
+  color: $disabled_text;
+  margin: 0 auto;
+  border: none;
+  border-radius: 7px;
+  height: 45px;
+  left: 0%;
+  outline: none;
+}
+
+.next-button-enable {
+  background-color:  $enabled_action_button;
+  position: fixed;
+  bottom: 15px;
+  right: 0%;
+  width: 75%;
+  color: $mid-text;
+  margin: 0 auto;
+  border: none;
+  border-radius: 7px;
+  height: 45px;
+  left: 0%;
+  outline: none;
+}
+.label-text {
+  color: $disabled_text;
+}
+
+.results-btn {
+  background-color: $enabled_action_button;
+  color: rgba(255, 255, 255, 0.87);
+  margin: 5px 0px;
+  border: none;
+  border-radius: 7px;
+  height: 32px;
+  width: 180px;
+  left: 0%;
+  outline: none;
+}
+
+.divider {
+  background: $disabled_text;
+  height: 2px;
+  margin: 5px 0px 5px 0px;
+}
+
+.menu-filter {
+  position: absolute;
+  width: 52%;
+  height: 66%;
+  margin-top: -160px;
+  padding: 214px 0px 50px 0px;
+  margin-left: -1px;
+
+  @media screen and (min-width: 800px) {
+    width: 20%;
+    height: 54%;
+    margin: 20px 0 0 0;
+    padding: 0;
+  }
+
+  .movie-review,
+  .movie-rating,
+  .sorting {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    text-align: left;
+    .star-buttons {
+      display: flex;
+      flex-flow: column-reverse nowrap;
+      justify-content: flex-start;
+      text-align: left;
+      .icon-full {
+        color: gold;
+        width: 16px;
+        height: 16px;
+        left: 86px;
+        top: 249px;
+      }
+    }
+  }
+  input {
+    position: static;
+    -webkit-appearance: none;
+    border-radius: 2px;
+
+    border: 2px solid #838383;
+    margin-right: 5px;
+    width: 16px;
+    height: 16px;
+    left: 16px;
+    top: 65px;
+
+    /* enabled button color */
+
+    background-color: #3d3d3d;
+    /* Box outline/seats not chosen */
+    box-sizing: border-box;
+    outline: none;
+  }
+  input:active {
+    background-color: #fd2d2d;
+    border: 2px solid #fd2d2d;
+    outline: none;
+  }
+  input:checked {
+    background-color: #fd2d2d;
+    border: 2px solid #fd2d2d;
+    outline: none;
+  }
+  input:checked:after {
+    content: "\2714";
+    font-size: 100%;
+    position: relative;
+    bottom: 3px;
+    left: 1px;
+    color: white;
+  }
+}
+// Hamburger menu styles
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  width: 35px;
+  height: 5px;
+  background: $pure_white;
+  border-radius: 10px;
+}
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  right: 32px;
+  top: 25px;
+}
+
+/* Individual item */
+.bm-item.menu-item {
+  text-decoration: none;
+  color: $pure_white;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: $pure_white;
+}
+
+/*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+.bm-menu-wrap {
+  position: fixed;
+  height: 100vh;
+
+  top: 0px;
+
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: $pure_black;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+  overflow: hidden !important;
+
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #b8b7ad;
+  padding: 1em;
+}
+
+/* Individual item */
+.bm-item {
+  display: inline-block;
+  padding: 0.5em;
+  outline: none;
+}
+
+.bm-item-list .active {
+  outline: none;
+  color: $enabled_action_button;
+}
+
+/* Styling of overlay */
+// .bm-overlay {
+//   background: rgba(0, 0, 0, 0.3);
+// }
+
+.menu-footer {
+  position: fixed;
+  bottom: 5px;
+  right: 10px;
+  font-size: 12px;
+}
+
+#team{
+  position: fixed;
+  bottom: 30px;
+  right: 10px;
+  font-size: 12px;
+  font-family: Lato;
+  font-weight: normal;
+  color: #ffffff;
+  font-style: normal;
+}
+
+// Styling of App name and header on dashboard
+
+.navbar-fixed{
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  padding-bottom: 65px;
+  position: fixed;
+  z-index: 31;
+}
+
+.app-name {
+  font-family: "Lato";
+  font-size: 16px;
+  color: $pure_white;
+  top: 15px;
+  left: 25px;
+  font-weight: bold;
+  position: fixed;
+  z-index: 31;
+}
+
+.app-name-knight {
+  font-weight: lighter;
+}
+
+.header-dash {
+  width:90%;
+  margin: 0 auto;
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-family: lato;
+}
+
+.titles {
+  text-align: left;
+  margin-left: 6px;
+
+  @media screen and (min-width: 800px) {
+    margin-left: 0;
+  }
+}
+
+.fontAwesome {
+  font-family: Helvetica, "FontAwesome", sans-serif;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  margin-left: 20px;
+}
+
+@media screen and (min-width: 800px) {
+  .bm-burger-button {
+    right: 70px;
+  }
+
+  .app-name {
+    left: 187px;
+  }
+}
+
+// *******Coming Soon Component
+.upcoming-com {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 auto;
+  margin-bottom: 100px;
+  @media screen and (min-width: 800px) {
+    margin-left: 30px;
+  }
+  h4 {
+    text-align: start;
+  }
+
+  .no-movie-poster {
+    width: 157;
+    height: 238px;
+  }
+
+}
+
+// See Results Button //
+.results-btn {
+  background-color: $enabled_action_button;
+  color: rgba(255, 255, 255, 0.87);
+  margin: 0 auto;
+  margin-top: 40px;
+  border: none;
+  border-radius: 7px;
+  height: 32px;
+  width: 180px;
+  left: 0%;
+  outline: none;
+}
+
+.filter-max {
+  width: 100%;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .max-num {
+    margin: 0;
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
+
+.or-text{
+  margin: 0 0 10px 0;
+  font-family: lato;
+
+  @media screen and (min-width: 800px) {
+    margin-left: 0;
+    font-size: 12px;
+  }
+
+  @media screen and (min-width: 800px) {
+    width: 28%;
+  }
+}
+

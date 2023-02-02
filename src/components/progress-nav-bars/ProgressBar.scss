@@ -1,0 +1,32 @@
+.progress-bar {
+  width: 100%;
+
+}
+
+.inside-dev {
+  width:90%;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  justify-content: center;
+  background-color: #000000;
+  opacity: 0.8;
+  height: 65px;
+  margin :0 auto
+}
+
+.icons {
+  width: 30px;
+  height: 30px;
+}
+
+.progress-line {
+  background-color: red;
+  width: 24px;
+  height: 5px;
+}
+
+.brightness {
+  filter: brightness(2);
+}

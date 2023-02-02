@@ -1,0 +1,122 @@
+.tickets-com {
+    width:90%;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding-top: 5px;
+}
+
+.ticket{
+    margin: 0 auto;
+    margin-top: 160px;
+    outline: none;
+}
+
+.title{
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 23px;
+    line-height: 28px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.sub-title{
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #FFFFFF;
+}
+.ticket-select{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.math{
+    color: #dfdfdf;
+    background-color: #000000;
+    border: 2px solid #dfdfdf;
+    margin: 0px 20px;
+    padding: 0px 24px;
+    font-size: 35px;
+    border-radius: 5px;
+    outline: none;
+}
+
+.ticket-num{
+    background-color: #3d3d3d;
+    color:  #FFFFFF;
+    font-size: 23px;
+    margin: 0px 0px;
+    padding: 9px 24px;
+    border-radius: 5px;
+}
+
+.sub-title{
+    margin-top: 23%;
+    margin-left: 1px;
+}
+
+.button{
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 20px;
+    margin: 0 5px;
+    padding: 6px 59px;
+}
+
+.yes{
+    border: 2px solid #FFFFFF;
+    color: #FFFFFF;
+    background-color: #000000;
+}
+
+.no{
+    background-color: #292a2b;
+    color: #3a3a3b;
+    border: 2px solid #292a2b;
+}
+
+.no-off{
+    border: 2px solid #FFFFFF;
+    color: #FFFFFF;
+    background-color: #000000;
+}
+
+.yes-off{
+    background-color: #292a2b;
+    color: #3a3a3b;
+    border: 2px solid #292a2b;
+}
+
+.next{
+    background-color: #fd2d2d;
+    color: rgba(255, 255, 255, 0.87);
+    border: none;
+    outline: none;
+    margin-top: 10%;
+    padding: 8px 145px;
+}
+
+.next-off{
+    background-color: #7e1616;;
+    color: rgba(255, 255, 255, 0.6);
+    border: none;
+    outline: none;
+    margin-top: 10%;
+    padding: 8px 145px;
+}
+
+.no-sub{
+    margin-left: 100px;
+}
+
+.progress-center{
+    display: flex;
+    justify-content: center;
+ }
