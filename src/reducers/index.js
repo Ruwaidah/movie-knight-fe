@@ -125,24 +125,6 @@ const reducer = (state = initialState, action) => {
       };
 
 
-    //*************************** GET MOVIES//
-    // case GET_MOVIES_START:
-    //   return {
-    //     ...state,
-    //     fetchingData: true
-    //   };
-    // case GET_MOVIES_SUCCESS:
-    //   return {
-    //     ...state,
-    //     fetchingData: false,
-    //     movieList: action.payload
-    //   };
-    // case GET_MOVIES_FAILURE:
-    //   return {
-    //     ...state,
-    //     fetchingData: false,
-    //     error: action.payload
-    //   };
 
     //********************** GET MOVIE DETAILS */
     case GET_MOVIE_DETAIL_START:
