@@ -1,29 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { HashRouter } from "react-router-dom";
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import { createStore, applyMiddleware } from 'redux'
-import logger from 'redux-logger'
-import thunk from 'redux-thunk'
-import { Provider } from 'react-redux'
-import reducer from './reducers/index'
-import ReduxThunk from 'redux-thunk'
-import { store } from './createStore.js'
+import React from "react";
+import ReactDOM from "react-dom";
+// import { HashRouter } from "react-router-dom";
+import "./index.css";
+import App from "./App";
+// import * as serviceWorker from "./serviceWorker";
+import { BrowserRouter as Router } from "react-router-dom";
 
-// export const middlewares = [ReduxThunk]
+import { Provider } from "react-redux";
 
-// export const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore)
-// const store = createStore(reducer, applyMiddleware(thunk, logger))
+import { store } from "./store.js";
 
-// export const store = createStoreWithMiddleware(reducer)
-ReactDOM.render(
-  <Provider store={store}>
-    <HashRouter>
-      <App />
-    </HashRouter>
-  </Provider>
-  , document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
-// serviceWorker.unregister();
+root.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  </React.StrictMode>
+);
+
+reportWebVitals();

@@ -16,7 +16,7 @@ import Showtime from "./components/showTimes/Showtime.js";
 import Profile from './components/profile/Profile.js';
 import Team from './components/teams/Team';
 
-function App(props) {
+function App() {
   const [showMenu, setShowMenu] = useState(true)
   const [oldPath, setOldPath] = useState("/")
 
