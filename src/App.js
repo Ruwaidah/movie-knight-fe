@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.scss";
-import { Route, withRouter, Switch } from "react-router-dom";
-import { connect } from 'react-redux'
+import { Route, Routes } from "react-router-dom";
+import { connect } from "react-redux";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import Dashboard from "./components/movieDashboard/Dashboard";
@@ -13,53 +13,59 @@ import TimePicker from "./components/date-time/TimePicker";
 import SeatChart from "./components/seats/SeatChart";
 import Tickets from "./components/tickets/Tickets";
 import Showtime from "./components/showTimes/Showtime.js";
-import Profile from './components/profile/Profile.js';
-import Team from './components/teams/Team';
+import Profile from "./components/profile/Profile.js";
+import Team from "./components/teams/Team";
 
 function App() {
-  const [showMenu, setShowMenu] = useState(true)
-  const [oldPath, setOldPath] = useState("/")
+  const [showMenu, setShowMenu] = useState(true);
+  const [oldPath, setOldPath] = useState("/");
 
   return (
     <div className="App">
-      <Nav setShowMenu={setShowMenu} showMenu={showMenu} setOldPath={setOldPath} />
-      <Switch>
-      <Route path="/profile" render={(props) => <Profile {...props} setShowMenu={setShowMenu} />} />
+      <Routes>
+        <Nav
+          setShowMenu={setShowMenu}
+          showMenu={showMenu}
+          setOldPath={setOldPath}
+        />
+        <Route
+          path="/profile"
+          render={(props) => <Profile {...props} setShowMenu={setShowMenu} />}
+        />
 
-      <Route exact path="/login" component={Login} />
+        <Route exact path="/login" component={Login} />
 
-      <Route exact path="/signup" component={Signup} />
+        <Route exact path="/signup" component={Signup} />
 
-      <Route exact path="/" component={Dashboard} />
+        <Route exact path="/" component={Dashboard} />
 
-      <Route exact path="/details/:movieName" component={MovieDetails} />
+        <Route exact path="/details/:movieName" component={MovieDetails} />
 
-      <Route exact path="/details" component={MovieDetails} />
+        <Route exact path="/details" component={MovieDetails} />
 
-      <Route exact path="/date" component={DataPicker} />
+        <Route exact path="/date" component={DataPicker} />
 
-      <Route exact path="/time" component={TimePicker} />
+        <Route exact path="/time" component={TimePicker} />
 
-      <Route exact path="/seats" component={SeatChart} />
+        <Route exact path="/seats" component={SeatChart} />
 
-      <Route exact path="/tickets" component={Tickets} />
+        <Route exact path="/tickets" component={Tickets} />
 
-      <Route exact path="/showtime" component={Showtime} />
+        <Route exact path="/showtime" component={Showtime} />
 
-      <Route exact path="/team" component={Team} />
+        <Route exact path="/team" component={Team} />
 
-      <Route exact path="*" component={Dashboard} />
-      </Switch>
+        <Route exact path="*" component={Dashboard} />
+      </Routes>
     </div>
   );
 }
 
-
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     googleData: state.googleData,
-    userData: state.userData
+    userData: state.userData,
   };
 };
 
-export default withRouter(connect(mapStateToProps)(App))
+export default withRouter(connect(mapStateToProps)(App));
