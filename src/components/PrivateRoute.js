@@ -1,22 +1,9 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom'
+import React from "react";
+import { Outlet, Navigate } from "react-router-dom";
 
-const PrivateRoute = ( { component: Component, ...rest } ) => {
+const PrivateRoute = () => {
+  const token = localStorage.getItem("token");
+  return token ? <Outlet /> : <Navigate to="/" />;
+};
 
-    return(
-        <Route
-            {...rest}
-            render={() => {
-                if(localStorage.getItem('token')){
-                    return <Component/>
-                }else{
-                    return <Redirect to='/' />
-                }
-            }}
-        
-        />
-    )
-
-}
-
-export default PrivateRoute
+export default PrivateRoute;
