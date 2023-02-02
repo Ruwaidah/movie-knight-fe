@@ -201,4 +201,6 @@ const userSlice = createSlice({
   },
 });
 
+// ************************************* GET MOVIE DETAIL
+
 export default userSlice.reducer;
