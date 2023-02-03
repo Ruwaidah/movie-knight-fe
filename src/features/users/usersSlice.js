@@ -33,7 +33,7 @@ export const login = createAsyncThunk("login_user", (data, thunkAPI) => {
 
 // ******************************************* SIGNUP USER
 
-export const signup = createAsyncThunk("signup_user", (data, thunkAPI) => {
+export const signUp = createAsyncThunk("signup_user", (data, thunkAPI) => {
   return axiosWithAuth()
     .post("/api/auth/register ", data)
     .then((response) => {
@@ -45,7 +45,7 @@ export const signup = createAsyncThunk("signup_user", (data, thunkAPI) => {
 
 //*************************************** GOOGLE_LOGIN */
 
-export const google_login = createAsyncThunk("goolge_login", (thunkAPI) => {
+export const signUpGoogle = createAsyncThunk("goolge_login", (thunkAPI) => {
   return axiosWithAuth()
     .post("/api/oauth/login", {
       token: localStorage.getItem("token"),

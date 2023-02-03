@@ -1,46 +1,55 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { signUp } from "../../actions/index";
-import { signUpGoogle } from "../../actions/index";
-import { withRouter } from "react-router-dom";
+// import { connect } from "react-redux";
+// import { signUp } from "../../actions/index";
+// import { signUpGoogle } from "../../actions/index";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { signUp, signUpGoogle } from "../../features/users/usersSlice.js";
+// import { withRouter } from "react-router-dom";
 
 //Oauth//
 import GoogleLogin, { GoogleLogout } from "react-google-login";
 
 export function Signup(props) {
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [signup, setsignup] = useState({
     username: "",
     password: "",
-    email: ""
+    email: "",
   });
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    props.signUp(signup);
-    props.history.push("/");
+    // props.signUp(signup);
+    dispatch(signUp(signup));
+    navigate("/");
+    // props.history.push("/");
     setsignup({ username: "", password: "", email: "" });
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setsignup({ ...signup, [event.target.name]: event.target.value });
   };
 
   //Oauth
-  const responseGoogle = response => {
+  const responseGoogle = (response) => {
     console.log("google response", response);
-    console.log(response.profileObj.imageUrl)
-    localStorage.setItem("image", response.profileObj.imageUrl)
+    console.log(response.profileObj.imageUrl);
+    localStorage.setItem("image", response.profileObj.imageUrl);
     const { tokenId } = response;
     localStorage.setItem("token", tokenId);
 
-    props.signUpGoogle(response);
-    props.history.push("/");
+    // props.signUpGoogle(response);
+    dispatch(signUpGoogle(response));
+    navigate("/");
+    // props.history.push("/");
   };
 
   const logoutGoogle = () => {
     localStorage.removeItem("token");
-    props.history.push("/");
+    // props.history.push("/");
+    navigate("/");
   };
 
   return (
@@ -112,21 +121,24 @@ export function Signup(props) {
             onChange={handleChange}
           />
         </div>{" "}
-
-        <button type="submit" className="signUp-btn" data-testid="signUp-button">
+        <button
+          type="submit"
+          className="signUp-btn"
+          data-testid="signUp-button"
+        >
           Sign Up
         </button>
       </form>
       <div className="member-p">
-
-        <button onClick={() => props.history.push("/")} className="guest-button">
+        <button
+          onClick={() => props.history.push("/")}
+          className="guest-button"
+        >
           Continue as guest
-      </button>
+        </button>
         <p>
           Already have an account?
-            <span onClick={() => props.history.push("/login")}>
-            Log in here
-            </span>
+          <span onClick={() => props.history.push("/login")}>Log in here</span>
         </p>{" "}
       </div>
       <div>
@@ -137,13 +149,10 @@ export function Signup(props) {
         {/* <button type="submit" className="next-button" data-testid="signup-btn">
           Sign Up
         </button> */}
-
-
-
       </div>
-
     </div>
   );
-};
+}
 
-export default withRouter(connect(null, { signUp, signUpGoogle })(Signup));
+export default Signup;
+// export default withRouter(connect(null, { signUp, signUpGoogle })(Signup));

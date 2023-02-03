@@ -1,33 +1,42 @@
 import React, { useState } from "react";
-import { login } from "../../actions/index";
+import { login, signUpGoogle } from "../../features/users/usersSlice.js";
+import { useDispatch, useSelector } from "react-redux";
 import { connect } from "react-redux";
-import { signUpGoogle } from "../../actions/index";
+// import { signUpGoogle } from "../../actions/index";
+import { useNavigate } from "react-router-dom";
 
 //Oauth//
 // import ReactDOM from 'react-dom';
 import GoogleLogin, { GoogleLogout } from "react-google-login";
 
-export const Login = props => {
+const Login = (props) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [loginInfo, setLogininfo] = useState({ email: "", password: "" });
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    props.login(loginInfo);
-    props.history.push("/");
+    // props.login(loginInfo);
+    dispatch(login(loginInfo));
+    // props.history.push("/");
+    navigate("/");
+
     setLogininfo({ email: "", password: "" });
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setLogininfo({ ...loginInfo, [event.target.name]: event.target.value });
   };
 
   //Oauth
-  const responseGoogle = response => {
+  const responseGoogle = (response) => {
     const { tokenId } = response;
     localStorage.setItem("token", tokenId);
     localStorage.setItem("image", response.profileObj.imageUrl);
-    props.signUpGoogle();
-    props.history.push("/");
+    // props.signUpGoogle();
+    dispatch(signUpGoogle());
+    // props.history.push("/");
+    navigate("/");
   };
 
   //Oauth
@@ -90,10 +99,12 @@ export const Login = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    userData: state.userData
-  };
-};
+export default Login
 
-export default connect(mapStateToProps, { login, signUpGoogle })(Login);
+// const mapStateToProps = (state) => {
+//   return {
+//     userData: state.userData,
+//   };
+// };
+
+// export default connect(mapStateToProps, { login, signUpGoogle })(Login);
