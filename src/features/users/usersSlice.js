@@ -34,7 +34,7 @@ export const login = createAsyncThunk("login_user", (data, thunkAPI) => {
 // ******************************************* SIGNUP USER
 
 export const signup = createAsyncThunk("signup_user", (data, thunkAPI) => {
-  return axiosWithAuth
+  return axiosWithAuth()
     .post("/api/auth/register ", data)
     .then((response) => {
       localStorage.setItem("userId", response.data.user.id);
@@ -110,7 +110,32 @@ export const updateUserData = createAsyncThunk(
 const userSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    toggleNext: (state) => {
+      state.NextButton = true;
+    },
+    toggleNextOff: (state) => {
+      state.NextButton = false;
+    },
+    movieNext: (state, action) => {
+      state.MovieSelects = action.payload;
+    },
+    dayNext: (state, action) => {
+      state.daySelects = action.payload;
+    },
+    ticketsNum: (state, action) => {
+      state.ticketsNumber = action.payload;
+    },
+    // ************************************* SEAT SELECT
+    seatsArea: (state, action) => {
+      state.seatsSelects = action.payload;
+    },
+
+    // ************************************** TIME SELECT
+    timeSelectAction: (state, action) => {
+      state.timeSelects = action.payload;
+    },
+  },
   extraReducers: {
     //************************************  USER LOGIN */
     [login.pending]: (state) => {
@@ -201,6 +226,13 @@ const userSlice = createSlice({
   },
 });
 
-// ************************************* GET MOVIE DETAIL
-
+export const {
+  toggleNext,
+  toggleNextOff,
+  movieNext,
+  dayNext,
+  ticketsNum,
+  seatsArea,
+  timeSelectAction,
+} = userSlice.actions;
 export default userSlice.reducer;
