@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./dashboard.scss";
-import { withRouter } from "react-router-dom";
-import { toggleNext, toggleNextOff } from "../../actions/index";
-import { connect } from "react-redux";
-import { act } from "react-dom/test-utils";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { toggleNext, toggleNextOff } from "../../features/users/usersSlice";
+// import { withRouter } from "react-router-dom";
+// import { toggleNext, toggleNextOff } from "../../actions/index";
+// import { connect } from "react-redux";
+// import { act } from "react-dom/test-utils";
 
 function MovieCard(props) {
+  const navigate = useNavigate();
+  const { NextButton } = useSelector((state) => state.users);
   let path;
   const [active, setActive] = useState(false);
   // const [movieSelect, setMovieSelect] = useState([]);
@@ -16,7 +21,7 @@ function MovieCard(props) {
   function toggleClass() {
     const currentState = active;
     setActive(!currentState);
-    props.toggleNext();
+    toggleNext();
   }
 
   function unSelectMovie() {
@@ -27,7 +32,7 @@ function MovieCard(props) {
   useEffect(() => {
     if (active) props.setMovieSelect([...props.movieSelect, props.movie]);
     else {
-      const filter = props.movieSelect.filter(movie1 => {
+      const filter = props.movieSelect.filter((movie1) => {
         return movie1.title !== props.movie.title;
       });
 
@@ -35,10 +40,10 @@ function MovieCard(props) {
     }
   }, [active]);
 
-  if (props.movieSelect.length > 0 && props.NextButton == false) {
-    props.toggleNext();
-  } else if (props.movieSelect.length === 0 && props.NextButton == true) {
-    props.toggleNextOff();
+  if (props.movieSelect.length > 0 && NextButton == false) {
+    toggleNext();
+  } else if (props.movieSelect.length === 0 && NextButton == true) {
+    toggleNextOff();
   }
 
   if (props.movie)
@@ -55,33 +60,37 @@ function MovieCard(props) {
             }
           />
           <p
-            onClick={() => props.history.push({
-              pathname: `/details/${path}`,
-              state: {movieSelect: props.movieSelect}
-            })}
+            onClick={() =>
+              navigate({
+                pathname: `/details/${path}`,
+                state: { movieSelect: props.movieSelect },
+              })
+            }
             className={active ? "movie-title-enable" : "movie-title-disable"}
           >
             {active ? "View Details" : null}
           </p>
         </div>
-      <p
-        // onClick={() => props.history.push(`/details/${path}`)}
-        className={active ? "movie-title-enable" : "movie-title-disable"}
-      >
-        {props.movie.title.length > 20
-          ? props.movie.title.slice(0, 17) + "..."
-          : props.movie.title}
-      </p>
-    </div>
-  );
+        <p
+          // onClick={() => props.history.push(`/details/${path}`)}
+          className={active ? "movie-title-enable" : "movie-title-disable"}
+        >
+          {props.movie.title.length > 20
+            ? props.movie.title.slice(0, 17) + "..."
+            : props.movie.title}
+        </p>
+      </div>
+    );
 }
 
-const mapStateToProps = state => {
-  return {
-    NextButton: state.NextButton
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     NextButton: state.NextButton,
+//   };
+// };
 
-export default withRouter(
-  connect(mapStateToProps, { toggleNext, toggleNextOff })(MovieCard)
-);
+// export default withRouter(
+//   connect(mapStateToProps, { toggleNext, toggleNextOff })(MovieCard)
+// );
+
+export default MovieCard;
