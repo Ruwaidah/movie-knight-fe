@@ -1,28 +1,31 @@
 import React, { useState } from "react";
-import { NavLink, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+// import { connect } from "react-redux";
 import { stack as Menu } from "react-burger-menu";
 
-export const Nav = props => {
+export const Nav = (props) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const navigate = useNavigate();
+  const location = useLocation();
   const logOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("google_username");
     localStorage.clear();
     setIsOpen(false);
-    props.history.push("/");
+    // props.history.push("/");
+    navigate("/");
   };
 
   const homeButton = () => {
-    props.history.push("/");
+    // props.history.push("/");
+    navigate("/");
   };
 
   const goProfile = () => {
     setIsOpen(false);
   };
 
-  const handleStateChange = state => {
+  const handleStateChange = (state) => {
     setIsOpen(state);
   };
 
@@ -31,8 +34,8 @@ export const Nav = props => {
   };
 
   return localStorage.getItem("token") ? (
-    <div className={props.location.pathname !== "/profile" ? null : "noMenu"}>
-      <div className='navbar-fixed'></div>
+    <div className={location.pathname !== "/profile" ? null : "noMenu"}>
+      <div className="navbar-fixed"></div>
       <h1 onClick={() => homeButton()} className="app-name">
         Movie<span className="app-name-knight">Knight</span>
       </h1>
@@ -40,7 +43,7 @@ export const Nav = props => {
         right
         width={"250px"}
         isOpen={isOpen}
-        onStateChange={state => handleStateChange(state.isOpen)}
+        onStateChange={(state) => handleStateChange(state.isOpen)}
         data-testid="menu"
       >
         <NavLink
@@ -61,12 +64,7 @@ export const Nav = props => {
         >
           My Account
         </NavLink>
-        <NavLink
-          exact
-          to='/team'
-          id='team'
-          className='menu-item'
-        >
+        <NavLink exact to="/team" id="team" className="menu-item">
           Meet our Team
         </NavLink>
         <span onClick={() => logOut()} id="logout" className="menu-item">
@@ -77,7 +75,7 @@ export const Nav = props => {
     </div>
   ) : (
     <div>
-      <div className='navbar-fixed'></div>
+      <div className="navbar-fixed"></div>
       <h1 onClick={() => homeButton()} className="app-name">
         Movie<span className="app-name-knight">Knight</span>
       </h1>
@@ -85,7 +83,7 @@ export const Nav = props => {
         right
         width={"250px"}
         isOpen={isOpen}
-        onStateChange={state => handleStateChange(state.isOpen)}
+        onStateChange={(state) => handleStateChange(state.isOpen)}
       >
         <NavLink
           exact
@@ -112,12 +110,7 @@ export const Nav = props => {
         >
           Login
         </NavLink>
-        <NavLink
-          exact
-          to='/team'
-          id='team'
-          className='menu-item'
-        >
+        <NavLink exact to="/team" id="team" className="menu-item">
           Meet our Team
         </NavLink>
         <footer className="menu-footer">&copy; 2020 Movie Knight</footer>
@@ -126,11 +119,12 @@ export const Nav = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     googleData: state.googleData,
-    userData: state.userData
+    userData: state.userData,
   };
 };
 
-export default withRouter(connect(mapStateToProps)(withRouter(Nav)));
+// export default withRouter(connect(mapStateToProps)(withRouter(Nav)));
+export default Nav;

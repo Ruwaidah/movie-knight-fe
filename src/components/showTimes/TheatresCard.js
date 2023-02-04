@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
-import { connect, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import './showtime.scss'
-import { addfavoriteTheatres, delfavoriteTheatres, getUserById } from '../../actions/index.js'
+import { useDispatch, useSelector } from 'react-redux'
+// import { addfavoriteTheatres, delfavoriteTheatres, getUserById } from '../../actions/index.js'
+import { addfavoriteTheatres, delfavoriteTheatres } from '../../features/movies/moviesSlice'
+import { getUserById } from '../../features/users/usersSlice'
 import whiteheart from '../images/whiteheart.png'
 import redheart from '../images/redheart.png'
 import { useEffect } from 'react'
@@ -10,15 +13,18 @@ import { displayImage } from '../TheatersImages'
 
 
 const TheatresCard = props => {
+    const dispatch = useDispatch();
+    const {theatres,fetchingData, userData, userInfo } =useSelector(state => state.users)
     const [userTheater, setUserTheatre] = useState([])
     const [isFavorite, setIsFavorite] = useState(false)
     const [firstTime, setFirstTime] = useState(true)
     // console.log(props.getTheater.location)
-    const theatre = props.theatres.filter(thea => thea.theatreId == props.show.id)
+    // const theatre = props.theatres.filter(thea => thea.theatreId == props.show.id)
+    const theatre = theatres.filter(thea => thea.theatreId == props.show.id)
     useEffect(() => {
         let theater
-        if (props.userInfo && firstTime) {
-            theater = props.userInfo.theatres.filter(theat => theat.theatreId == props.show.id)
+        if (userInfo && firstTime) {
+            theater = userInfo.theatres.filter(theat => theat.theatreId == props.show.id)
             setUserTheatre(theater)
             setFirstTime(false)
             if (theater.length > 0)
@@ -30,19 +36,19 @@ const TheatresCard = props => {
 
     const addToFavorite = () => {
         console.log(theatre)
-        props.addfavoriteTheatres(theatre)
+        // props.addfavoriteTheatres(theatre)
+        dispatch(addfavoriteTheatres(theatre))
         // props.getUserById()
         setIsFavorite(true)
     }
 
     const delFromFavorite = () => {
-        props.delfavoriteTheatres(props.show.id)
+        // props.delfavoriteTheatres(props.show.id)
+        dispatch(delfavoriteTheatres(props.show.id))
         // props.getUserById()
         setIsFavorite(false)
     }
 
-
-    console.log(props)
     return (
         <div className={props.ind > 0 ? "black-bg theatre" : 'theatre'}>
 
@@ -74,13 +80,14 @@ const TheatresCard = props => {
 
 
 }
-const mapStateToProps = state => {
-    return {
-        fetchingData: state.fetchingData,
-        theatres: state.theatres,
-        userData: state.userData,
-        userInfo: state.userInfo
-    };
-};
+// const mapStateToProps = state => {
+//     return {
+//         fetchingData: state.fetchingData,
+//         theatres: state.theatres,
+//         userData: state.userData,
+//         userInfo: state.userInfo
+//     };
+// };
 
-export default connect(mapStateToProps, { addfavoriteTheatres, delfavoriteTheatres, getUserById })(TheatresCard);
+// export default connect(mapStateToProps, { addfavoriteTheatres, delfavoriteTheatres, getUserById })(TheatresCard);
+export default TheatresCard
