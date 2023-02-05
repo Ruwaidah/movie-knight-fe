@@ -22,40 +22,40 @@ function App() {
 
   return (
     <div className="App">
+      <Nav
+        setShowMenu={setShowMenu}
+        showMenu={showMenu}
+        setOldPath={setOldPath}
+      />
       <Routes>
-        <Nav
-          setShowMenu={setShowMenu}
-          showMenu={showMenu}
-          setOldPath={setOldPath}
-        />
         <Route
           path="/profile"
           render={(props) => <Profile {...props} setShowMenu={setShowMenu} />}
         />
 
-        <Route exact path="/login" component={Login} />
+        <Route  path="/login" component={Login} />
 
-        <Route exact path="/signup" component={Signup} />
+        <Route  path="/signup" component={Signup} />
 
-        <Route exact path="/" component={Dashboard} />
+        <Route  path="/" component={Dashboard} />
 
-        <Route exact path="/details/:movieName" component={MovieDetails} />
+        <Route  path="/details/:movieName" component={MovieDetails} />
 
-        <Route exact path="/details" component={MovieDetails} />
+        <Route  path="/details" component={MovieDetails} />
 
-        <Route exact path="/date" component={DataPicker} />
+        <Route  path="/date" component={DataPicker} />
 
-        <Route exact path="/time" component={TimePicker} />
+        <Route  path="/time" component={TimePicker} />
 
-        <Route exact path="/seats" component={SeatChart} />
+        <Route  path="/seats" component={SeatChart} />
 
-        <Route exact path="/tickets" component={Tickets} />
+        <Route  path="/tickets" component={Tickets} />
 
-        <Route exact path="/showtime" component={Showtime} />
+        <Route  path="/showtime" component={Showtime} />
 
-        <Route exact path="/team" component={Team} />
+        <Route  path="/team" component={Team} />
 
-        <Route exact path="*" component={Dashboard} />
+        <Route  path="*" component={Dashboard} />
       </Routes>
     </div>
   );
@@ -69,4 +69,4 @@ const mapStateToProps = (state) => {
 };
 
 // export default withRouter(connect(mapStateToProps)(App));
-export default App
+export default App;
