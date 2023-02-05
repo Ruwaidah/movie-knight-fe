@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
 import './showtime.scss'
 import { useDispatch, useSelector } from 'react-redux'
 // import { addfavoriteTheatres, delfavoriteTheatres, getUserById } from '../../actions/index.js'
