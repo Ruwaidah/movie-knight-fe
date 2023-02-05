@@ -7,7 +7,7 @@ import Signup from "./components/auth/Signup";
 import Dashboard from "./components/movieDashboard/Dashboard";
 import Nav from "./components/progress-nav-bars/Nav";
 import MovieDetails from "./components/movieDetails/MovieDetails.js";
-import PrivateRoute from "./components/PrivateRoute";
+// import s from "./components/PrivateRoute";
 import DataPicker from "./components/date-time/DatePicker";
 import TimePicker from "./components/date-time/TimePicker";
 import SeatChart from "./components/seats/SeatChart";
@@ -19,7 +19,7 @@ import Team from "./components/teams/Team";
 function App() {
   const [showMenu, setShowMenu] = useState(true);
   const [oldPath, setOldPath] = useState("/");
-
+  console.log("ewfewfwe");
   return (
     <div className="App">
       <Nav
@@ -28,45 +28,37 @@ function App() {
         setOldPath={setOldPath}
       />
       <Routes>
+        <Route path="/" element={<Dashboard />} />
+
         <Route
           path="/profile"
           render={(props) => <Profile {...props} setShowMenu={setShowMenu} />}
         />
 
-        <Route  path="/login" component={Login} />
+        <Route path="/login" element={<Login />} />
 
-        <Route  path="/signup" component={Signup} />
+        <Route path="/signup" element={<Signup />} />
 
-        <Route  path="/" component={Dashboard} />
+        <Route path="/details/:movieName" element={<MovieDetails />} />
 
-        <Route  path="/details/:movieName" component={MovieDetails} />
+        <Route path="/details" element={<MovieDetails />} />
 
-        <Route  path="/details" component={MovieDetails} />
+        <Route path="/date" element={<DataPicker />} />
 
-        <Route  path="/date" component={DataPicker} />
+        <Route path="/time" element={<TimePicker />} />
 
-        <Route  path="/time" component={TimePicker} />
+        <Route path="/seats" element={<SeatChart />} />
 
-        <Route  path="/seats" component={SeatChart} />
+        <Route path="/tickets" element={<Tickets />} />
 
-        <Route  path="/tickets" component={Tickets} />
+        <Route path="/showtime" element={<Showtime />} />
 
-        <Route  path="/showtime" component={Showtime} />
+        <Route path="/team" element={<Team />} />
 
-        <Route  path="/team" component={Team} />
-
-        <Route  path="*" component={Dashboard} />
+        {/* <Route path="*" component={Dashboard} /> */}
       </Routes>
     </div>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    googleData: state.googleData,
-    userData: state.userData,
-  };
-};
-
-// export default withRouter(connect(mapStateToProps)(App));
 export default App;

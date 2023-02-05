@@ -3,11 +3,6 @@ import "./profileStyle.scss";
 import Close from "../images/closeButton.png";
 import noImage from "../images/no-image.gif";
 import setting from "../images/setting.svg";
-import {
-  getUserById,
-  updateUser,
-  updateUserData,
-} from "../../features/users/usersSlice.js";
 import { delfavoriteTheatres } from "../../features/movies/moviesSlice.js";
 import { useEffect } from "react";
 import Loading from "../Loading.js";
@@ -153,4 +148,4 @@ const mapStateToProps = (state) => {
     userInfo: state.userInfo,
   };
 };
-export default Profile
+export default Profile;

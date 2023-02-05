@@ -20,6 +20,7 @@ export function MovieList(props) {
   });
 
   function makeCall() {
+    console.log("make call", zipCode)
     axios
       .get(`https://movieknight01.herokuapp.com/api/movies?zip=${zipCode}`)
       .then((response) => {
