@@ -136,94 +136,93 @@ const userSlice = createSlice({
       state.timeSelects = action.payload;
     },
   },
-  extraReducers: {
+  extraReducers: (builder) => {
     //************************************  USER LOGIN */
-    [login.pending]: (state) => {
-      state.fetchingData = true;
-      state.error = "";
-    },
-    [login.fulfilled]: (state, action) => {
-      state.fetchingData = false;
-      state.userData = action.payload;
-      state.error = "";
-    },
-    [login.rejected]: (state, action) => {
-      state.fetchingData = false;
-      state.error = action.payload;
-    },
+    builder
+      .addCase(login.pending, (state) => {
+        state.fetchingData = true;
+        state.error = "";
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.fetchingData = false;
+        state.userData = action.payload;
+        state.error = "";
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.fetchingData = false;
+        state.error = action.payload;
+      })
 
-    //***************************************  USER SIGN-UP */
-    [signUp.pending]: (state) => {
-      state.fetchingData = true;
-    },
-    [signUp.fulfilled]: (state, action) => {
-      localStorage.setItem("userId", action.payload.id);
-      localStorage.setItem("token", action.payload.token);
-      state.fetchingData = false;
-      state.userData = action.payload;
-    },
-    [signUp.rejected]: (state, action) => {
-      state.fetchingData = false;
-      state.error = action.payload;
-    },
+      //***************************************  USER SIGN-UP */
+      .addCase(signUp.pending, (state) => {
+        state.fetchingData = true;
+      })
+      .addCase(signUp.fulfilled, (state, action) => {
+        localStorage.setItem("userId", action.payload.id);
+        localStorage.setItem("token", action.payload.token);
+        state.fetchingData = false;
+        state.userData = action.payload;
+      })
+      .addCase(signUp.rejected, (state, action) => {
+        state.fetchingData = false;
+        state.error = action.payload;
+      })
+      //************************************  USER GOOGLE LOGIN */
+      .addCase(signUpGoogle.pending, (state) => {
+        state.fetchingData = true;
+      })
+      .addCase(signUpGoogle.fulfilled, (state, action) => {
+        state.fetchingData = false;
+        state.userData = action.payload.user;
+      })
+      .addCase(signUpGoogle.rejected, (state, action) => {
+        state.fetchingData = false;
+        state.error = action.payload;
+      })
+      // ******************************************* GET USER BY ID
 
-    //************************************  USER GOOGLE LOGIN */
-    [signUpGoogle.pending]: (state) => {
-      state.fetchingData = true;
-    },
-    [signUpGoogle.fulfilled]: (state, action) => {
-      state.fetchingData = false;
-      state.userData = action.payload.user;
-    },
-    [signUpGoogle.rejected]: (state, action) => {
-      state.fetchingData = false;
-      state.error = action.payload;
-    },
+      .addCase(getUserById.pending, (state) => {
+        state.fetchingData = true;
+        state.error = "";
+      })
 
-    // ******************************************* GET USER BY ID
-    [getUserById.pending]: (state) => {
-      state.fetchingData = true;
-      state.error = "";
-    },
-    [getUserById.fulfilled]: (state, action) => {
-      state.fetchingData = false;
-      state.error = "";
-      state.userInfo = action.payload;
-    },
-    [getUserById.rejected]: (state, action) => {
-      state.fetchingData = false;
-      state.error = action.payload;
-    },
-
-    // ********************************* UPDATE USER IMAGE
-    [updateUser.pending]: (state) => {
-      state.fetchingData = true;
-      state.error = "";
-    },
-    [updateUser.fulfilled]: (state, action) => {
-      state.fetchingData = false;
-      state.error = "";
-      state.userInfo = action.payload;
-    },
-    [updateUser.rejected]: (state, action) => {
-      state.fetchingData = false;
-      state.error = action.payload;
-    },
-
-    // ************************************* UPDATE USER DATA
-    [updateUserData.pending]: (state) => {
-      state.fetchingData = true;
-      state.error = "";
-    },
-    [updateUserData.fulfilled]: (state, action) => {
-      state.fetchingData = false;
-      state.error = "";
-      state.userInfo = action.payload;
-    },
-    [updateUserData.rejected]: (state, action) => {
-      state.fetchingData = false;
-      state.error = action.payload;
-    },
+      .addCase(getUserById.fulfilled, (state, action) => {
+        state.fetchingData = false;
+        state.error = "";
+        state.userInfo = action.payload;
+      })
+      .addCase(getUserById.rejected, (state, action) => {
+        state.fetchingData = false;
+        state.error = action.payload;
+      })
+      // ********************************* UPDATE USER IMAGE
+      .addCase(updateUser.pending, (state) => {
+        state.fetchingData = true;
+        state.error = "";
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.fetchingData = false;
+        state.error = "";
+        state.userInfo = action.payload;
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.fetchingData = false;
+        state.error = action.payload;
+      })
+      // ************************************* UPDATE USER DATA
+      .addCase(updateUserData.pending, (state) => {
+        state.fetchingData = true;
+        state.error = "";
+      })
+      .addCase(updateUserData.fulfilled, (state, action) => {
+        state.fetchingData = false;
+        state.error = "";
+        state.userInfo = action.payload;
+      })
+      .addCase(updateUserData.rejected, (state, action) => {
+        state.fetchingData = false;
+        state.error = action.payload;
+      });
   },
 });
 
