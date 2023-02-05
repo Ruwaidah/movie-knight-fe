@@ -227,6 +227,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withRouter(
-  connect(mapStateToProps, { getMovieDetail, movieNext })(MovieDetails)
-);
+// export default withRouter(
+//   connect(mapStateToProps, { getMovieDetail, movieNext })(MovieDetails)
+// );
+export default MovieDetails

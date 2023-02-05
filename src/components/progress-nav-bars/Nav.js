@@ -56,7 +56,7 @@ export const Nav = (props) => {
           Home
         </NavLink>
         <NavLink
-          exact
+          
           to="/profile"
           id="profile"
           className="menu-item"
@@ -64,7 +64,7 @@ export const Nav = (props) => {
         >
           My Account
         </NavLink>
-        <NavLink exact to="/team" id="team" className="menu-item">
+        <NavLink  to="/team" id="team" className="menu-item">
           Meet our Team
         </NavLink>
         <span onClick={() => logOut()} id="logout" className="menu-item">
@@ -86,7 +86,7 @@ export const Nav = (props) => {
         onStateChange={(state) => handleStateChange(state.isOpen)}
       >
         <NavLink
-          exact
+          
           to="/"
           id="home"
           className="menu-item"
@@ -110,7 +110,7 @@ export const Nav = (props) => {
         >
           Login
         </NavLink>
-        <NavLink exact to="/team" id="team" className="menu-item">
+        <NavLink  to="/team" id="team" className="menu-item">
           Meet our Team
         </NavLink>
         <footer className="menu-footer">&copy; 2020 Movie Knight</footer>

@@ -1,3 +1,4 @@
+import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import calendar from "../images/calendar.svg";
 import cart from "../images/cart.svg";
@@ -9,18 +10,17 @@ import tickets from "../images/tickets.svg";
 import "./ProgressBar.scss";
 // import { withRouter } from "react-router-dom";
 
-const ProgressBar = (props) => {
+const ProgressBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const pathname = location.pathname;
   return (
     <div className="progress-bar">
       <div className="inside-dev">
         <img
           id="search"
-          className={
-            location.pathname.slice(1, 8) === "details"
-              ? "icons brightness"
-              : "icons"
+          className={(state) =>
+            pathname.slice(1, 8) === "details" ? "icons brightness" : "icons"
           }
           src={searchmovie}
           alt="searchmovie logo"
@@ -29,8 +29,8 @@ const ProgressBar = (props) => {
         <div className="progress-line" />
         <img
           id="calendar"
-          className={
-            location.pathname.slice(1) === "date" ? "icons brightness" : "icons"
+          className={(state) =>
+            pathname.slice(1) === "date" ? "icons brightness" : "icons"
           }
           src={calendar}
           alt="calendar logo"
@@ -39,8 +39,8 @@ const ProgressBar = (props) => {
         <div className="progress-line" />
         <img
           id="clock"
-          className={
-            location.pathname.slice(1) === "time" ? "icons brightness" : "icons"
+          className={(state) =>
+            pathname.slice(1) === "time" ? "icons brightness" : "icons"
           }
           src={clock}
           alt="clock logo"
@@ -49,10 +49,8 @@ const ProgressBar = (props) => {
         <div className="progress-line" />
         <img
           id="tickets"
-          className={
-            location.pathname.slice(1) === "tickets"
-              ? "icons brightness"
-              : "icons"
+          className={(state) =>
+            pathname.slice(1) === "tickets" ? "icons brightness" : "icons"
           }
           src={tickets}
           alt="tickets logo"
@@ -61,10 +59,8 @@ const ProgressBar = (props) => {
         <div className="progress-line" />
         <img
           id="chair"
-          className={
-            location.pathname.slice(1) === "seats"
-              ? "icons brightness"
-              : "icons"
+          className={(state) =>
+            pathname.slice(1) === "seats" ? "icons brightness" : "icons"
           }
           src={chair}
           alt="chair logo"
@@ -73,10 +69,8 @@ const ProgressBar = (props) => {
         <div className="progress-line" />
         <img
           id="movieslate"
-          className={
-            location.pathname.slice(1) === "showtime"
-              ? "icons brightness"
-              : "icons"
+          className={(state) =>
+            pathname.slice(1) === "showtime" ? "icons brightness" : "icons"
           }
           src={movieslate}
           alt="movieslate logo"

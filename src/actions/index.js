@@ -1,8 +1,7 @@
 import axiosWithAuth from "../utils/axiosWithAuth";
-import { createBrowserHistory } from "history";
+// import { createBrowserHistory } from "history";
 import axios from "axios";
-
-export const history = createBrowserHistory();
+// export const history = createBrowserHistory();
 export const USER_LOGING_IN = "USER_LOGING_IN";
 export const USER_LOGING_IN_SUCCESS = "USER_LOGING_IN_SUCCESS";
 export const USER_LOGING_IN_FAILURE = "USER_LOGING_IN_FAILURE";

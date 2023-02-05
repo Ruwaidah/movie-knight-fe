@@ -153,29 +153,29 @@ const userSlice = createSlice({
     },
 
     //***************************************  USER SIGN-UP */
-    [signup.pending]: (state) => {
+    [signUp.pending]: (state) => {
       state.fetchingData = true;
     },
-    [signup.fulfilled]: (state, action) => {
+    [signUp.fulfilled]: (state, action) => {
       localStorage.setItem("userId", action.payload.id);
       localStorage.setItem("token", action.payload.token);
       state.fetchingData = false;
       state.userData = action.payload;
     },
-    [signup.rejected]: (state, action) => {
+    [signUp.rejected]: (state, action) => {
       state.fetchingData = false;
       state.error = action.payload;
     },
 
     //************************************  USER GOOGLE LOGIN */
-    [google_login.pending]: (state) => {
+    [signUpGoogle.pending]: (state) => {
       state.fetchingData = true;
     },
-    [google_login.fulfilled]: (state, action) => {
+    [signUpGoogle.fulfilled]: (state, action) => {
       state.fetchingData = false;
       state.userData = action.payload.user;
     },
-    [google_login.rejected]: (state, action) => {
+    [signUpGoogle.rejected]: (state, action) => {
       state.fetchingData = false;
       state.error = action.payload;
     },
@@ -191,7 +191,8 @@ const userSlice = createSlice({
       state.userInfo = action.payload;
     },
     [getUserById.rejected]: (state, action) => {
-      (state.fetchingData = false), (state.error = action.payload);
+      state.fetchingData = false;
+      state.error = action.payload;
     },
 
     // ********************************* UPDATE USER IMAGE
@@ -206,7 +207,7 @@ const userSlice = createSlice({
     },
     [updateUser.rejected]: (state, action) => {
       state.fetchingData = false;
-      stateerror = action.payload;
+      state.error = action.payload;
     },
 
     // ************************************* UPDATE USER DATA
@@ -221,7 +222,7 @@ const userSlice = createSlice({
     },
     [updateUserData.rejected]: (state, action) => {
       state.fetchingData = false;
-      stateerror = action.payload;
+      state.error = action.payload;
     },
   },
 });
