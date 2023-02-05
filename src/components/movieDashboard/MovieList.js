@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import MovieCard from "./MovieCard";
 import "./dashboard.scss";
-// import { getMovie } from "../../actions/index";
-import { connect } from "react-redux";
 import ZipSearch from "./ZipSearch.js";
 import SearchForm from "./SearchForm.js";
 import FilterMenu from "./FilterMenu.js";
 import Loading from "../Loading.js";
-import { toggleNext, toggleNextOff } from "../../actions/index";
 
 export function MovieList(props) {
+  const { fetchingData } = useSelector((state) => state.users);
   const [movies, setMovies] = useState([]);
   const [searchParam, setSearchParam] = useState("");
   const [zipCode, setZipCode] = useState(47712);
   const [filters, setFilter] = useState({
     filter: "",
     rating: ["1", "2", "3", "4", "5"],
-    mature: ["G", "PG", "PG-13", "R"]
+    mature: ["G", "PG", "PG-13", "R"],
   });
 
   function makeCall() {
+    console.log("make call", zipCode)
     axios
       .get(`https://movieknight01.herokuapp.com/api/movies?zip=${zipCode}`)
-      .then(response => {
+      .then((response) => {
         setMovies(response.data);
       });
   }
@@ -49,7 +49,7 @@ export function MovieList(props) {
           <p className="max-num"></p>
         )}
       </div>
-      {props.fetchingData ? (
+      {fetchingData ? (
         <Loading />
       ) : (
         <div
@@ -58,7 +58,7 @@ export function MovieList(props) {
           onClick={toggleMenu}
         >
           {movies
-            .filter(movie => {
+            .filter((movie) => {
               return (
                 (movie.title.includes(searchParam) ||
                   movie.title.toLowerCase().includes(searchParam)) &&
@@ -73,7 +73,7 @@ export function MovieList(props) {
                 )
               );
             })
-            .sort(function(a, b) {
+            .sort(function (a, b) {
               if (filters.filter === "recent") {
                 var dateA = new Date(a.releaseDate),
                   dateB = new Date(b.releaseDate);
@@ -102,7 +102,7 @@ export function MovieList(props) {
                 return null;
               }
             })
-            .map(movie => {
+            .map((movie) => {
               return (
                 <MovieCard
                   movie={movie}
@@ -117,13 +117,5 @@ export function MovieList(props) {
     </div>
   );
 }
-const mapStateToProps = state => {
-  return {
-    movieList: state.movieList,
-    fetchingData: state.fetchingData
-  };
-};
-export default connect(mapStateToProps, {
-  toggleNext,
-  toggleNextOff
-})(MovieList);
+
+export default MovieList;

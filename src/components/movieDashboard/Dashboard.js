@@ -1,24 +1,21 @@
-import React, { useState } from "react";
-// import { withRouter } from "react-router-dom";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MovieList from "./MovieList";
 import "./dashboard.scss";
 import UpComingMovies from "./UpComingMovies.js";
 import { useNavigate } from "react-router-dom";
-// import { connect } from "react-redux";
-// import { movieNext } from "../../actions/index.js";
 import { movieNext } from "../../features/users/usersSlice";
 
-export const Dashboard = props => {
+export const Dashboard = () => {
+  console.log("ewfwfwfw")
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const  {NextButton,MovieSelects } = useSelector(state => state.users)
+  const { NextButton, MovieSelects } = useSelector((state) => state.users);
   const [movieSelect, setMovieSelect] = useState([]);
+  console.log(movieSelect)
   function DatePage() {
-    // props.movieNext(movieSelect);
-    dispatch(movieNext(movieSelect))
-    // props.history.push("/date");
-    navigate("/date")
+    dispatch(movieNext(movieSelect));
+    navigate("/date");
   }
 
   return (
@@ -44,12 +41,4 @@ export const Dashboard = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    NextButton: state.NextButton,
-    MovieSelects: state.MovieSelects
-  };
-};
-
-// export default withRouter(connect(mapStateToProps, { movieNext })(Dashboard));
-export default Dashboard
+export default Dashboard;

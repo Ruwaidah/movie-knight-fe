@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import DayCard from "./DayCard";
-import { connect } from "react-redux";
-import { dayNext } from "../../actions/index.js";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { dayNext } from "../../features/users/usersSlice";
 import ProgressBar from "../progress-nav-bars/ProgressBar.js";
 import "../../App.scss";
 
-export const DataPicker = props => {
+export const DatePicker = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [daySelect, setDaySelect] = useState([]);
 
   const days = [
@@ -19,8 +22,8 @@ export const DataPicker = props => {
   ];
 
   function timePage() {
-    props.dayNext(daySelect);
-    props.history.push("/time");
+    dispatch(dayNext(daySelect));
+    navigate("/time");
   }
 
   return (
@@ -58,11 +61,4 @@ export const DataPicker = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    MovieSelects: state.MovieSelects,
-    daySelect: state.daySelect
-  };
-};
-
-export default connect(mapStateToProps, { dayNext })(DataPicker);
+export default DatePicker

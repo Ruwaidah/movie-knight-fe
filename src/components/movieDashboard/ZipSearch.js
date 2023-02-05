@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 function ZipSearch(props) {
   const [zip, setZip] = useState(localStorage.getItem("zip") || "");
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setZip(e.target.value);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     localStorage.setItem("zip", zip);
-    console.log("zip")
+    console.log("zip");
     props.setZipCode(zip);
   };
   return (

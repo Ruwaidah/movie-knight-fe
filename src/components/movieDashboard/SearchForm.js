@@ -1,7 +1,6 @@
-import React from "react";
 
 function SearchForm(props) {
-  const handleChangeSearch = event => {
+  const handleChangeSearch = (event) => {
     props.setSearchParam(event.target.value);
   };
 

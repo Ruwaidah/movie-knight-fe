@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
 
-const TimeCard = props => {
+const TimeCard = (props) => {
   const [active, setActive] = useState(false);
 
   function toggleClass() {
@@ -12,13 +11,12 @@ const TimeCard = props => {
   useEffect(() => {
     if (active) props.setTimeSelect([...props.timeSelect, props.time]);
     else {
-      const filter = props.timeSelect.filter(time => {
+      const filter = props.timeSelect.filter((time) => {
         return time !== props.time;
       });
       props.setTimeSelect(filter);
     }
   }, [active]);
-
 
   return (
     <button
@@ -30,11 +28,4 @@ const TimeCard = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    MovieSelects: state.MovieSelects,
-    daySelect: state.daySelect
-  };
-};
-
-export default connect(mapStateToProps)(TimeCard);
+export default TimeCard;
