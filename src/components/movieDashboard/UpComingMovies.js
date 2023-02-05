@@ -1,24 +1,17 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { connect } from "react-redux";
-// import { getUpcomingMovies } from "../../actions/index.js";
 import { getUpcomingMovies } from "../../features/movies/moviesSlice.js";
 import Loading from "../Loading.js";
-// import { withRouter } from "react-router-dom";
 
-export function UpComingMovies(props) {
+function UpComingMovies() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { upcomingMovies, fetchingData, movieList } = useSelector(
-    (state) => state.users
-  );
+  const { upcomingMovies, movieList } = useSelector((state) => state.users);
   useEffect(() => {
-    // props.getUpcomingMovies();
     dispatch(getUpcomingMovies());
   }, []);
 
-  // if (!props.movieList) return <Loading />;
   if (!movieList) return <Loading />;
 
   return (
@@ -58,13 +51,4 @@ export function UpComingMovies(props) {
   );
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     upcomingMovies: state.upcomingMovies,
-//     fetchingData: state.fetchingData,
-//     movieList: state.movieList
-//   };
-// };
-
-// export default withRouter(connect(mapStateToProps, { getUpcomingMovies })(UpComingMovies))
 export default UpComingMovies;

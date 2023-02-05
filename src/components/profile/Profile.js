@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useState } from "react";
 import "./profileStyle.scss";
 import Close from "../images/closeButton.png";
 import noImage from "../images/no-image.gif";
 import setting from "../images/setting.svg";
-// import { getUserById, updateUser, updateUserData, delfavoriteTheatres } from '../../actions/index.js'
 import {
   getUserById,
   updateUser,
@@ -42,7 +40,7 @@ function Profile(props) {
     setImage(file);
     let reader = new FileReader();
     var url = reader.readAsDataURL(file);
-    reader.onloadend = function(e) {
+    reader.onloadend = function (e) {
       setPreview(reader.result);
     }.bind(reader);
   };
@@ -128,15 +126,6 @@ function Profile(props) {
         <h3>FAVORITE THEATERS</h3>
         {props.userInfo.theatres &&
           props.userInfo.theatres.map((theatre) => (
-            // <div className = "fav">
-            //     <p>{theatre.theatre}</p>
-            //     <p>{theatre.street}</p>
-            //     <p>{theatre.state}</p>
-
-            //     <p>{theatre.city}</p>
-            //     <p>{theatre.zip}</p>
-
-            // </div>
             <div className="theatre">
               <div className="theateraddress">
                 <h2 className="theatre-name">{theatre.theatre}</h2>
@@ -164,9 +153,4 @@ const mapStateToProps = (state) => {
     userInfo: state.userInfo,
   };
 };
-export default connect(mapStateToProps, {
-  delfavoriteTheatres,
-  getUserById,
-  updateUser,
-  updateUserData,
-})(Profile);
+export default Profile

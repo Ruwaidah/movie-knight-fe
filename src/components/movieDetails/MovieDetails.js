@@ -5,15 +5,11 @@ import StarRatings from "react-star-ratings";
 import "react-circular-progressbar/dist/styles.css";
 import axios from "axios";
 import "./movieDetails.scss";
-import { getMovieDetail } from "../../actions/index.js";
-// import { connect } from "react-redux";
 import Loading from "../Loading.js";
 import ProgressBar from "../progress-nav-bars/ProgressBar.js";
-// import { withRouter } from "react-router-dom";
-// import { movieNext } from "../../actions/index.js";
 import { movieNext } from "../../features/users/usersSlice";
 
-export const MovieDetails = (props) => {
+const MovieDetails = (props) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,9 +29,7 @@ export const MovieDetails = (props) => {
       });
   }, []);
   function DatePage() {
-    // props.movieNext(props.location.state.movieSelect);
     dispatch(movieNext(props.location.state.movieSelect));
-    // props.history.push("/date");
     navigate("/date");
   }
   console.log(movie);
@@ -47,10 +41,7 @@ export const MovieDetails = (props) => {
   let firsttitle;
   let second_title;
   function reverseString(str) {
-    return str
-      .split("-")
-      .reverse()
-      .join("-");
+    return str.split("-").reverse().join("-");
   }
   if (movie) {
     firsttitle = movie.movie.original_title.split("(")[0];
@@ -113,29 +104,6 @@ export const MovieDetails = (props) => {
                 <span>Rated {rating[1]}</span>
               </p>
             ) : null}
-            {/* 
-            <p>
-              <span>
-                {movie.movie.vote_average}/10 <i className="fab fa-imdb"></i>
-              </span>
-            </p> */}
-            {/* <p>
-              <span>
-                {reverseString(movie.moviedetail.release_date).replace(
-                  /-/g,
-                  " / "
-                )}
-              </span>
-            </p>
-            <p className="genres">
-              {movie.moviedetail.genres.slice(0, 3).map((genre, i, arr) => {
-                if (arr.length - 1 === i) {
-                  return <span key={genre.id}>{genre.name}</span>;
-                } else {
-                  return <span key={genre.id}>{genre.name},</span>;
-                }
-              })}
-            </p> */}
             <StarRatings
               rating={movie.movie.vote_average / 2}
               starRatedColor="red"
@@ -221,13 +189,4 @@ export const MovieDetails = (props) => {
   }
 };
 
-const mapStateToProps = (state) => {
-  return {
-    movieDetails: state.movieDetails,
-  };
-};
-
-// export default withRouter(
-//   connect(mapStateToProps, { getMovieDetail, movieNext })(MovieDetails)
-// );
-export default MovieDetails
+export default MovieDetails;

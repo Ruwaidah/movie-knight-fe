@@ -1,21 +1,21 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import TimeCard from "./TimeCard";
-import ProgressBar from "../progress-nav-bars/ProgressBar.js"
-import { timeSelectAction } from '../../actions/index.js'
+import ProgressBar from "../progress-nav-bars/ProgressBar.js";
+import { timeSelectAction } from "../../features/users/usersSlice";
 
-const TimePicker = props => {
+const TimePicker = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [timeSelect, setTimeSelect] = useState([]);
 
   const times = ["9-11 AM", "12-2 PM", "3-5 PM", "6-8 PM", "9-Midnight"];
 
-
   function ticketsPage() {
-    props.timeSelectAction(timeSelect)
-    props.history.push("/tickets");
+    dispatch(timeSelectAction(timeSelect));
+    navigate("/tickets");
   }
-
-
 
   return (
     <div className="timePicker-com">
@@ -36,30 +36,20 @@ const TimePicker = props => {
           })}
         </div>
       </div>
-      {
-        timeSelect.length === 0 ?
-          <div className="black-box">
-            <button className="next-button">
-              Next
-            </button>
-          </div>
-          :
-          <div className="black-box">
-            <button className="next-button-active" onClick={ticketsPage}>
-              Next
-            </button>
-          </div>
-      }
+      {timeSelect.length === 0 ? (
+        <div className="black-box">
+          <button className="next-button">Next</button>
+        </div>
+      ) : (
+        <div className="black-box">
+          <button className="next-button-active" onClick={ticketsPage}>
+            Next
+          </button>
+        </div>
+      )}
       <ProgressBar />
     </div>
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    MovieSelects: state.MovieSelects,
-    daySelects: state.daySelects
-  };
-};
-
-export default connect(mapStateToProps, { timeSelectAction })(TimePicker);
+export default TimePicker;

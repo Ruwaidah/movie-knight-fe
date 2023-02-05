@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "./dashboard.scss";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { toggleNext, toggleNextOff } from "../../features/users/usersSlice";
-// import { withRouter } from "react-router-dom";
-// import { toggleNext, toggleNextOff } from "../../actions/index";
-// import { connect } from "react-redux";
-// import { act } from "react-dom/test-utils";
 
 function MovieCard(props) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { NextButton } = useSelector((state) => state.users);
   let path;
   const [active, setActive] = useState(false);
-  // const [movieSelect, setMovieSelect] = useState([]);
   if (props.movie.ratings)
     path = `${props.movie.title}&rate=${props.movie.ratings[0].code}`;
   else path = props.movie.title;
@@ -21,12 +17,11 @@ function MovieCard(props) {
   function toggleClass() {
     const currentState = active;
     setActive(!currentState);
-    toggleNext();
+    dispatch(toggleNext());
   }
 
   function unSelectMovie() {
     setActive(false);
-    // props.toggleNext();
   }
 
   useEffect(() => {
@@ -41,9 +36,9 @@ function MovieCard(props) {
   }, [active]);
 
   if (props.movieSelect.length > 0 && NextButton == false) {
-    toggleNext();
+    dispatch(toggleNext());
   } else if (props.movieSelect.length === 0 && NextButton == true) {
-    toggleNextOff();
+    dispatch(toggleNextOff());
   }
 
   if (props.movie)
@@ -71,10 +66,7 @@ function MovieCard(props) {
             {active ? "View Details" : null}
           </p>
         </div>
-        <p
-          // onClick={() => props.history.push(`/details/${path}`)}
-          className={active ? "movie-title-enable" : "movie-title-disable"}
-        >
+        <p className={active ? "movie-title-enable" : "movie-title-disable"}>
           {props.movie.title.length > 20
             ? props.movie.title.slice(0, 17) + "..."
             : props.movie.title}
@@ -82,15 +74,5 @@ function MovieCard(props) {
       </div>
     );
 }
-
-// const mapStateToProps = (state) => {
-//   return {
-//     NextButton: state.NextButton,
-//   };
-// };
-
-// export default withRouter(
-//   connect(mapStateToProps, { toggleNext, toggleNextOff })(MovieCard)
-// );
 
 export default MovieCard;

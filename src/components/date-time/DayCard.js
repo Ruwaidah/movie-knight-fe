@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
 
-const DayCard = props => {
+const DayCard = (props) => {
   const [active, setActive] = useState(false);
 
   function toggleClass() {
@@ -16,7 +15,7 @@ const DayCard = props => {
     "Wednesday",
     "Thursday",
     "Friday",
-    "Saturday"
+    "Saturday",
   ];
 
   //  Date Format
@@ -35,7 +34,7 @@ const DayCard = props => {
   useEffect(() => {
     if (active) props.setDaySelect([...props.daySelect, getday(props.index)]);
     else {
-      const filter = props.daySelect.filter(day => {
+      const filter = props.daySelect.filter((day) => {
         return day[1] !== getday(props.index)[1];
       });
       props.setDaySelect(filter);
@@ -53,11 +52,4 @@ const DayCard = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    MovieSelects: state.MovieSelects,
-    daySelects: state.daySelects
-  };
-};
-
-export default connect(mapStateToProps)(DayCard);
+export default DayCard;
