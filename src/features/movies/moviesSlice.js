@@ -1,6 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosWithAuth from "../../utils/axiosWithAuth";
-const initialState = {};
+const initialState = {
+  fetchingData: false,
+  movies: [],
+};
+
+// ************************************* GET ALL THE MOVIES
+export const makeCall = createAsyncThunk(
+  "get_all_movies",
+  (zipcode, thunkAPI) => {
+    console.log("makecall", zipcode)
+    axiosWithAuth()
+      .get(`https://movieknight01.herokuapp.com/api/movies?zip=${zipcode}`)
+      .then((response) => console.log(response))
+      .catch((error) => console.log(error));
+  }
+);
 
 // ************************************* GET MOVIE DETAIL
 export const getMovieDetail = createAsyncThunk(
@@ -88,33 +103,45 @@ const moviesSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {},
-  extraReducers: {
-    // ************************************* GET MOVIE DETAIL
-    [getMovieDetail.pending]: (state, action) => {
-      state.fetchingData = true;
-    },
-    [getMovieDetail.fulfilled]: (state, action) => {
-      state.fetchingData = false;
-      state.movieDetails = action.payload;
-    },
-    [getMovieDetail.rejected]: (state, action) => {
-      state.fetchingData = false;
-      state.error = action.payload;
-    },
-    [getShowTimesRsults.pending]: (state) => {
-      state.fetchingData = true;
-      state.error = "";
-    },
-    [getShowTimesRsults.fulfilled]: (state, action) => {
-      state.fetchingData = false;
-      state.error = "";
-      state.results = action.payload[0];
-      state.theatres = action.payload[1];
-    },
-    [getShowTimesRsults.rejected]: (state, action) => {
-      state.fetchingData = false;
-      state.error = action.payloa;
-    },
+  extraReducers: (builder) => {
+    builder
+      // **************************** GET ALL MOVIES
+      .addCase(makeCall.pending, (state) => {
+        state.fetchingData = true;
+      })
+      .addCase(makeCall.fulfilled, (state, action) => {
+        state.fetchingData = false;
+        console.log(action);
+      })
+      .addCase(makeCall.rejected, (state, action) => {
+        console.log(action);
+      })
+      // ************************************* GET MOVIE DETAIL
+      .addCase(getMovieDetail.pending, (state, action) => {
+        state.fetchingData = true;
+      })
+      .addCase(getMovieDetail.fulfilled, (state, action) => {
+        state.fetchingData = false;
+        state.movieDetails = action.payload;
+      })
+      .addCase(getMovieDetail.rejected, (state, action) => {
+        state.fetchingData = false;
+        state.error = action.payload;
+      })
+      .addCase(getShowTimesRsults.pending, (state) => {
+        state.fetchingData = true;
+        state.error = "";
+      })
+      .addCase(getShowTimesRsults.fulfilled, (state, action) => {
+        state.fetchingData = false;
+        state.error = "";
+        state.results = action.payload[0];
+        state.theatres = action.payload[1];
+      })
+      .addCase(getShowTimesRsults.rejected, (state, action) => {
+        state.fetchingData = false;
+        state.error = action.payloa;
+      });
   },
 });
 

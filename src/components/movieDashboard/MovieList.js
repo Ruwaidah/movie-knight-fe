@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import axios from "axios";
+import { useState, useEffect } from "react";
+import { makeCall } from "../../features/movies/moviesSlice";
+import { useSelector, useDispatch } from "react-redux";
 import MovieCard from "./MovieCard";
 import "./dashboard.scss";
 import ZipSearch from "./ZipSearch.js";
@@ -9,6 +9,7 @@ import FilterMenu from "./FilterMenu.js";
 import Loading from "../Loading.js";
 
 export function MovieList(props) {
+  const dispatch = useDispatch()
   const { fetchingData } = useSelector((state) => state.users);
   const [movies, setMovies] = useState([]);
   const [searchParam, setSearchParam] = useState("");
@@ -19,17 +20,17 @@ export function MovieList(props) {
     mature: ["G", "PG", "PG-13", "R"],
   });
 
-  function makeCall() {
-    console.log("make call", zipCode)
-    axios
-      .get(`https://movieknight01.herokuapp.com/api/movies?zip=${zipCode}`)
-      .then((response) => {
-        setMovies(response.data);
-      });
-  }
+  // function makeCall() {
+  //   console.log("make call", zipCode)
+  //   axios
+  //     .get(`https://movieknight01.herokuapp.com/api/movies?zip=${zipCode}`)
+  //     .then((response) => {
+  //       setMovies(response.data);
+  //     });
+  // }
 
   useEffect(() => {
-    makeCall();
+   dispatch( makeCall());
   }, [zipCode]);
 
   const toggleMenu = () => {

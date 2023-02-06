@@ -136,7 +136,7 @@ const userSlice = createSlice({
       state.timeSelects = action.payload;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: (builder) =>  {
     //************************************  USER LOGIN */
     builder
       .addCase(login.pending, (state) => {
