@@ -34,7 +34,6 @@ const TheatresCard = props => {
 
 
     const addToFavorite = () => {
-        console.log(theatre)
         // props.addfavoriteTheatres(theatre)
         dispatch(addfavoriteTheatres(theatre))
         // props.getUserById()

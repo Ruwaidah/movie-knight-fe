@@ -70,7 +70,6 @@ function Profile(props) {
 
   // DELETE THEATRE
   const delFromFavorite = (e, id) => {
-    console.log(props.userInfo.theatres.theatreId);
     e.preventDefault();
     props.delfavoriteTheatres(id);
     props.getUserById();

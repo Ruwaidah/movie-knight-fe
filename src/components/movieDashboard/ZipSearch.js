@@ -10,7 +10,6 @@ function ZipSearch(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     localStorage.setItem("zip", zip);
-    console.log("zip");
     props.setZipCode(zip);
   };
   return (

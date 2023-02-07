@@ -7,12 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { movieNext } from "../../features/users/usersSlice";
 
 export const Dashboard = () => {
-  console.log("ewfwfwfw")
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { NextButton, MovieSelects } = useSelector((state) => state.users);
   const [movieSelect, setMovieSelect] = useState([]);
-  console.log(movieSelect)
   function DatePage() {
     dispatch(movieNext(movieSelect));
     navigate("/date");
