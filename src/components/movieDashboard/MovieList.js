@@ -10,7 +10,8 @@ import Loading from "../Loading.js";
 
 export function MovieList(props) {
   const dispatch = useDispatch()
-  const { fetchingData } = useSelector((state) => state.users);
+  const { allMovies, gettingMoviesLoading } = useSelector((state) => state.movies);
+  // const { fetchingData } = useSelector((state) => state.users);
   const [movies, setMovies] = useState([]);
   const [searchParam, setSearchParam] = useState("");
   const [zipCode, setZipCode] = useState(47712);
@@ -29,14 +30,15 @@ export function MovieList(props) {
   //     });
   // }
 
+
   useEffect(() => {
-   dispatch( makeCall());
+   dispatch( makeCall(zipCode));
   }, [zipCode]);
 
   const toggleMenu = () => {
     document.getElementById("filter").classList.remove("toggle-menu2");
   };
-
+console.log(allMovies, gettingMoviesLoading)
   return (
     <div className="movielist-component">
       <ZipSearch setZipCode={setZipCode} />
@@ -50,7 +52,7 @@ export function MovieList(props) {
           <p className="max-num"></p>
         )}
       </div>
-      {fetchingData ? (
+      {gettingMoviesLoading ? (
         <Loading />
       ) : (
         <div
@@ -58,7 +60,7 @@ export function MovieList(props) {
           data-testid="movielist"
           onClick={toggleMenu}
         >
-          {movies
+          {allMovies
             .filter((movie) => {
               return (
                 (movie.title.includes(searchParam) ||
@@ -118,5 +120,8 @@ export function MovieList(props) {
     </div>
   );
 }
+
+
+
 
 export default MovieList;
