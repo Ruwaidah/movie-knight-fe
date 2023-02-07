@@ -10,7 +10,6 @@ const initialState = {
   googleData: {},
   NextButton: false,
   movieDetails: {},
-  upcomingMovies: [],
   MovieSelects: [],
   daySelects: [],
   ticketsNumber: 0,

@@ -1,18 +1,35 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosWithAuth from "../../utils/axiosWithAuth";
 const initialState = {
-  fetchingData: false,
-  movies: [],
+  gettingMoviesLoading: false,
+  gettingUpMoviesLoading: false,
+  upcomingMovies: [],
+  allMovies: [],
 };
+function checkDate() {
+  var day = new Date();
+  var dd = String(day.getDate()).padStart(2, "0");
+  var mm = String(day.getMonth() + 1).padStart(2, "0");
+  var yyyy = day.getFullYear();
+  day = yyyy + "-" + mm + "-" + dd;
+  // if (req.query && req.query.date) return (date = req.query.date);
+  // else
+  return day;
+}
 
 // ************************************* GET ALL THE MOVIES
 export const makeCall = createAsyncThunk(
   "get_all_movies",
-  (zipcode, thunkAPI) => {
-    console.log("makecall", zipcode)
-    axiosWithAuth()
-      .get(`https://movieknight01.herokuapp.com/api/movies?zip=${zipcode}`)
-      .then((response) => console.log(response))
+  async (zipcode, thunkAPI) => {
+    const date = checkDate();
+    console.log(date);
+    return await axiosWithAuth()
+      // .get(`https://movieknight01.herokuapp.com/api/movies?zip=${zipcode}`)
+      .get(`http://localhost:5000/api/movies?startDate=${date}&zip=${zipcode}`)
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
       .catch((error) => console.log(error));
   }
 );
@@ -99,6 +116,8 @@ export const delfavoriteTheatres =
       .catch((err) => console.log(err));
   });
 
+//  ===================================================================================================
+
 const moviesSlice = createSlice({
   name: "movies",
   initialState,
@@ -107,41 +126,57 @@ const moviesSlice = createSlice({
     builder
       // **************************** GET ALL MOVIES
       .addCase(makeCall.pending, (state) => {
-        state.fetchingData = true;
+        console.log(state.gettingMoviesLoading);
+        state.gettingMoviesLoading = true;
       })
       .addCase(makeCall.fulfilled, (state, action) => {
-        state.fetchingData = false;
-        console.log(action);
+        console.log(action.payload);
+        state.gettingMoviesLoading = false;
+        state.allMovies = action.payload;
       })
       .addCase(makeCall.rejected, (state, action) => {
         console.log(action);
       })
-      // ************************************* GET MOVIE DETAIL
-      .addCase(getMovieDetail.pending, (state, action) => {
-        state.fetchingData = true;
+
+      // **************************** GET UP COMING MOVIES
+      .addCase(
+        getUpcomingMovies.pending,
+        (state) => (state.gettingUpMoviesLoading = true)
+      )
+      .addCase(getUpcomingMovies.fulfilled, (state, action) => {
+        state.gettingUpMoviesLoading = false;
+        state.upcomingMovies = action.payload;
       })
-      .addCase(getMovieDetail.fulfilled, (state, action) => {
-        state.fetchingData = false;
-        state.movieDetails = action.payload;
-      })
-      .addCase(getMovieDetail.rejected, (state, action) => {
-        state.fetchingData = false;
-        state.error = action.payload;
-      })
-      .addCase(getShowTimesRsults.pending, (state) => {
-        state.fetchingData = true;
-        state.error = "";
-      })
-      .addCase(getShowTimesRsults.fulfilled, (state, action) => {
-        state.fetchingData = false;
-        state.error = "";
-        state.results = action.payload[0];
-        state.theatres = action.payload[1];
-      })
-      .addCase(getShowTimesRsults.rejected, (state, action) => {
-        state.fetchingData = false;
-        state.error = action.payloa;
+      .addCase(getUpcomingMovies.rejected, (state, action) => {
+        console.log(action);
       });
+
+    // ************************************* GET MOVIE DETAIL
+    // .addCase(getMovieDetail.pending, (state, action) => {
+    //   state.gettingMoviesLoading = true;
+    // })
+    // .addCase(getMovieDetail.fulfilled, (state, action) => {
+    //   state.gettingMoviesLoading = false;
+    //   state.movieDetails = action.payload;
+    // })
+    // .addCase(getMovieDetail.rejected, (state, action) => {
+    //   state.gettingMoviesLoading = false;
+    //   state.error = action.payload;
+    // })
+    // .addCase(getShowTimesRsults.pending, (state) => {
+    //   state.gettingMoviesLoading = true;
+    //   state.error = "";
+    // })
+    // .addCase(getShowTimesRsults.fulfilled, (state, action) => {
+    //   state.gettingMoviesLoading = false;
+    //   state.error = "";
+    //   state.results = action.payload[0];
+    //   state.theatres = action.payload[1];
+    // })
+    // .addCase(getShowTimesRsults.rejected, (state, action) => {
+    //   state.gettingMoviesLoading = false;
+    //   state.error = action.payloa;
+    // });
   },
 });
 

@@ -7,12 +7,12 @@ import Loading from "../Loading.js";
 function UpComingMovies() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { upcomingMovies, movieList } = useSelector((state) => state.users);
-  useEffect(() => {
-    dispatch(getUpcomingMovies());
-  }, []);
+  const { upcomingMovies, gettingUpMoviesLoading } = useSelector((state) => state.movies);
+  // useEffect(() => {
+  //   dispatch(getUpcomingMovies());
+  // }, []);
 
-  if (!movieList) return <Loading />;
+  if (gettingUpMoviesLoading) return <Loading />;
 
   return (
     <div className="upcoming-com">
@@ -22,18 +22,16 @@ function UpComingMovies() {
           movies.map((movie) => (
             <div className="movie-card" key={movie.id}>
               <div className="movie-img-disable ">
-                {movie.poster_path === null ? (
+                {/* {movie.poster_path === null ? (
                   <img
                     alt="noimage"
                     className="no-movie-poster"
                     src={`https://res.cloudinary.com/donsjzduw/image/upload/v1580504817/hfjrl5wbkiugy4y0gmqu.jpg`}
-                  />
-                ) : (
+                  /> */}
                   <img
                     src={`http://image.tmdb.org/t/p/w185/${movie.poster_path}`}
                     alt={movie.title}
                   />
-                )}
               </div>
               <p
                 onClick={() => navigate(`/details/${movie.title}`)}
