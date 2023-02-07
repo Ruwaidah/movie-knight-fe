@@ -38,7 +38,6 @@ export function MovieList(props) {
   const toggleMenu = () => {
     document.getElementById("filter").classList.remove("toggle-menu2");
   };
-console.log(allMovies, gettingMoviesLoading)
   return (
     <div className="movielist-component">
       <ZipSearch setZipCode={setZipCode} />

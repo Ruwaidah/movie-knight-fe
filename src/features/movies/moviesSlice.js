@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 import axiosWithAuth from "../../utils/axiosWithAuth";
 const initialState = {
   gettingMoviesLoading: false,
   gettingUpMoviesLoading: false,
-  upcomingMovies: [],
+  comingMovies: [],
   allMovies: [],
 };
 function checkDate() {
@@ -22,15 +23,31 @@ export const makeCall = createAsyncThunk(
   "get_all_movies",
   async (zipcode, thunkAPI) => {
     const date = checkDate();
-    console.log(date);
     return await axiosWithAuth()
       // .get(`https://movieknight01.herokuapp.com/api/movies?zip=${zipcode}`)
-      .get(`http://localhost:5000/api/movies?startDate=${date}&zip=${zipcode}`)
+      .get(`/api/movies?startDate=${date}&zip=${zipcode}`)
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((error) => console.log(error));
+  }
+);
+
+// ************************************* GET UPCOMING MOVIES
+export const getUpcomingMovies = createAsyncThunk(
+  "get_up_coming_movies",
+  async (data, thunkAPI) => {
+    console.log("geetttting");
+    return await axiosWithAuth()
+      .get(`/api/upcoming`)
+      .then((respone) => {
+        console.log(respone);
+        return respone.data;
+      })
+      .catch((err) => {
+        console.log(err);
+        thunkAPI.rejectWithValue(err.respone);
+      });
   }
 );
 
@@ -42,17 +59,6 @@ export const getMovieDetail = createAsyncThunk(
       .post(`/api/movies/moviedetails`, {
         title: `${movieName}`,
       })
-      .then((respone) => respone.data)
-      .catch((err) => thunkAPI.rejectWithValue(err.respone));
-  }
-);
-
-// ************************************* GET UPCOMING MOVIES
-export const getUpcomingMovies = createAsyncThunk(
-  "get_up_coming_movies",
-  (thunkAPI) => {
-    return axiosWithAuth()
-      .get(`/api/upcoming`)
       .then((respone) => respone.data)
       .catch((err) => thunkAPI.rejectWithValue(err.respone));
   }
@@ -126,11 +132,9 @@ const moviesSlice = createSlice({
     builder
       // **************************** GET ALL MOVIES
       .addCase(makeCall.pending, (state) => {
-        console.log(state.gettingMoviesLoading);
         state.gettingMoviesLoading = true;
       })
       .addCase(makeCall.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.gettingMoviesLoading = false;
         state.allMovies = action.payload;
       })
@@ -139,13 +143,12 @@ const moviesSlice = createSlice({
       })
 
       // **************************** GET UP COMING MOVIES
-      .addCase(
-        getUpcomingMovies.pending,
-        (state) => (state.gettingUpMoviesLoading = true)
-      )
+      .addCase(getUpcomingMovies.pending, (state) => {
+        state.gettingUpMoviesLoading = true;
+      })
       .addCase(getUpcomingMovies.fulfilled, (state, action) => {
         state.gettingUpMoviesLoading = false;
-        state.upcomingMovies = action.payload;
+        state.comingMovies = action.payload;
       })
       .addCase(getUpcomingMovies.rejected, (state, action) => {
         console.log(action);

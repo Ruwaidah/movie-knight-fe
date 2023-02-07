@@ -19,7 +19,6 @@ import Team from "./components/teams/Team";
 function App() {
   const [showMenu, setShowMenu] = useState(true);
   const [oldPath, setOldPath] = useState("/");
-  console.log("ewfewfwe");
   return (
     <div className="App">
       <Nav
