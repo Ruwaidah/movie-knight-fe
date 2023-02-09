@@ -6,6 +6,7 @@ const initialState = {
   gettingUpMoviesLoading: false,
   comingMovies: [],
   allMovies: [],
+  seats: [],
 };
 function checkDate() {
   var day = new Date();
@@ -91,6 +92,17 @@ export const getShowTimesRsults = createAsyncThunk(
   }
 );
 
+// ********************************** GETTING ALL SEATS
+export const getSeats = createAsyncThunk("getting_seats", (thunkAPI) => {
+  return axiosWithAuth()
+    .get("/api/seats")
+    .then((respone) => {
+      console.log(respone.data);
+      return respone.data;
+    })
+    .catch((errorr) => thunkAPI.rejectWithValue(errorr.respone));
+});
+
 // ********************************** ADD FAVORITE THEATRES
 export const addfavoriteTheatres = createAsyncThunk(
   "add_favorite_theaters",
@@ -152,6 +164,11 @@ const moviesSlice = createSlice({
       })
       .addCase(getUpcomingMovies.rejected, (state, action) => {
         console.log(action);
+      })
+      // .addCase(getSeats.pending, (state) => {})
+      .addCase(getSeats.fulfilled, (state, action) => {
+        console.log(action.payload)
+        state.seats = action.payload;
       });
 
     // ************************************* GET MOVIE DETAIL

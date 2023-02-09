@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { getSeats } from "../../features/movies/moviesSlice";
+// import axios from "axios";
 import "./seatChart.scss";
 import Loading from "../Loading";
 import screen from "../images/screen.svg";
@@ -9,7 +11,10 @@ import { seatsArea } from "../../features/users/usersSlice";
 import SeatsCard from "./SeatsCard.js";
 
 const Seatchart = (props) => {
-  const [seats, setSeats] = useState([]);
+  const { seats } = useSelector((state) => state.movies);
+  console.log(seats);
+  const dispatch = useDispatch();
+  // const [seats, setSeats] = useState([]);
   const navigate = useNavigate();
   const [seatsSelect, setSeatSelect] = useState({
     front: [],
@@ -20,10 +25,7 @@ const Seatchart = (props) => {
   });
 
   useEffect(() => {
-    axios.get("https://movieknight01.herokuapp.com/api/seats").then((res) => {
-      console.log(res.data);
-      setSeats(res.data);
-    });
+    dispatch(getSeats());
   }, []);
 
   function showtimePage() {
