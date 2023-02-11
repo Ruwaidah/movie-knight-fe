@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MovieList from "./MovieList";
+import MoviesList from "./MoviesList";
 import "./dashboard.scss";
 import UpComingMovies from "./UpComingMovies.js";
 import { useNavigate } from "react-router-dom";
 import { movieNext } from "../../features/users/usersSlice";
-
+import { movieSelect } from "../../features/movies/moviesSlice.js";
 export const Dashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { NextButton, MovieSelects } = useSelector((state) => state.users);
-  const [movieSelect, setMovieSelect] = useState([]);
+  const { NextButton } = useSelector((state) => state.users);
+  // const [movieSelect, setMovieSelect] = useState([]);
   function DatePage() {
-    dispatch(movieNext(movieSelect));
+    // dispatch(movieNext(movieSelect));
     navigate("/date");
   }
 
@@ -21,7 +21,7 @@ export const Dashboard = () => {
       <div className="titles">
         <h1 className="header-dash">Select the movies you'd like to see</h1>
       </div>
-      <MovieList movieSelect={movieSelect} setMovieSelect={setMovieSelect} />
+      <MoviesList />
       <UpComingMovies />
 
       {NextButton ? (

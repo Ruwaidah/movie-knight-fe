@@ -2,12 +2,17 @@ import React, { useState, useEffect } from "react";
 import "./dashboard.scss";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import {
+  selecting_movies,
+  unSelecting_movie,
+} from "../../features/movies/moviesSlice";
 import { toggleNext, toggleNextOff } from "../../features/users/usersSlice";
 
 function MovieCard(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { NextButton } = useSelector((state) => state.users);
+  const { movieSelect } = useSelector((state) => state.movies);
   let path;
   const [active, setActive] = useState(false);
   if (props.movie.ratings)
@@ -17,27 +22,32 @@ function MovieCard(props) {
   function toggleClass() {
     const currentState = active;
     setActive(!currentState);
+    // setActive(!active);
     dispatch(toggleNext());
   }
+
+  console.log(movieSelect, props.movie)
+  console.log(active)
 
   function unSelectMovie() {
     setActive(false);
   }
 
   useEffect(() => {
-    if (active) props.setMovieSelect([...props.movieSelect, props.movie]);
+    // if (active) props.setMovieSelect([...props.movieSelect, props.movie]);
+    if (active) dispatch(selecting_movies([...movieSelect, props.movie]));
     else {
-      const filter = props.movieSelect.filter((movie1) => {
+      const filter = movieSelect.filter((movie1) => {
         return movie1.title !== props.movie.title;
       });
 
-      props.setMovieSelect(filter);
+      dispatch(unSelecting_movie(filter));
     }
   }, [active]);
 
-  if (props.movieSelect.length > 0 && NextButton == false) {
+  if (movieSelect.length > 0 && NextButton == false) {
     dispatch(toggleNext());
-  } else if (props.movieSelect.length === 0 && NextButton == true) {
+  } else if (movieSelect.length === 0 && NextButton == true) {
     dispatch(toggleNextOff());
   }
 
@@ -50,16 +60,15 @@ function MovieCard(props) {
           <img
             src={props.movie.image}
             alt={props.movie.title}
-            onClick={
-              props.movieSelect.length == 3 ? unSelectMovie : toggleClass
-            }
+            onClick={movieSelect.length == 3 ? unSelectMovie : toggleClass}
           />
           <p
             onClick={() =>
-              navigate({
-                pathname: `/details/${path}`,
-                state: { movieSelect: props.movieSelect },
-              })
+              // navigate({
+              //   pathname: `/details/${path}`,
+              //   state: { movieSelect: movieSelect },
+              // })
+              navigate(`/details/${path}`)
             }
             className={active ? "movie-title-enable" : "movie-title-disable"}
           >
