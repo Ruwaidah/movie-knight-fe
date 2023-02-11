@@ -10,7 +10,7 @@ const initialState = {
   googleData: {},
   NextButton: false,
   movieDetails: {},
-  MovieSelects: [],
+  // MovieSelects: [],
   daySelects: [],
   ticketsNumber: 0,
   seatsSelects: [],
@@ -116,9 +116,9 @@ const userSlice = createSlice({
     toggleNextOff: (state) => {
       state.NextButton = false;
     },
-    movieNext: (state, action) => {
-      state.MovieSelects = action.payload;
-    },
+    // movieNext: (state, action) => {
+    //   state.MovieSelects = action.payload;
+    // },
     dayNext: (state, action) => {
       state.daySelects = action.payload;
     },

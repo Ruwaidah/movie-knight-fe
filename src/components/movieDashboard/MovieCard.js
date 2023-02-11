@@ -26,15 +26,14 @@ function MovieCard(props) {
     dispatch(toggleNext());
   }
 
-  console.log(movieSelect, props.movie)
-  console.log(active)
+  console.log(movieSelect, props.movie);
+  console.log(active);
 
   function unSelectMovie() {
     setActive(false);
   }
 
   useEffect(() => {
-    // if (active) props.setMovieSelect([...props.movieSelect, props.movie]);
     if (active) dispatch(selecting_movies([...movieSelect, props.movie]));
     else {
       const filter = movieSelect.filter((movie1) => {
@@ -63,13 +62,7 @@ function MovieCard(props) {
             onClick={movieSelect.length == 3 ? unSelectMovie : toggleClass}
           />
           <p
-            onClick={() =>
-              // navigate({
-              //   pathname: `/details/${path}`,
-              //   state: { movieSelect: movieSelect },
-              // })
-              navigate(`/details/${path}`)
-            }
+            onClick={() => navigate(`/details/${path}`)}
             className={active ? "movie-title-enable" : "movie-title-disable"}
           >
             {active ? "View Details" : null}

@@ -54,8 +54,6 @@ export function MoviesList(props) {
               <MovieCard
                 movie={movie}
                 key={movie.tmsId}
-                // movieSelect={props.movieSelect}
-                // setMovieSelect={props.setMovieSelect}
               />
             );
           })}
