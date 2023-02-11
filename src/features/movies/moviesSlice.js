@@ -6,6 +6,7 @@ const initialState = {
   gettingUpMoviesLoading: false,
   comingMovies: [],
   allMovies: [],
+  movieSelect: [],
   seats: [],
 };
 function checkDate() {
@@ -64,6 +65,8 @@ export const getMovieDetail = createAsyncThunk(
       .catch((err) => thunkAPI.rejectWithValue(err.respone));
   }
 );
+
+// ************************************* SELETING MOVIES
 
 // ************************************* SHOWTIMES RESULT
 export const getShowTimesRsults = createAsyncThunk(
@@ -139,7 +142,15 @@ export const delfavoriteTheatres =
 const moviesSlice = createSlice({
   name: "movies",
   initialState,
-  reducers: {},
+  reducers: {
+    selecting_movies: (state, action) => {
+      state.movieSelect = [...state.movieSelect, action.payload];
+    },
+    unSelecting_movie: (state, action) => {
+      state.movieSelect = action.payload;
+    },
+  },
+
   extraReducers: (builder) => {
     builder
       // **************************** GET ALL MOVIES
@@ -167,7 +178,7 @@ const moviesSlice = createSlice({
       })
       // .addCase(getSeats.pending, (state) => {})
       .addCase(getSeats.fulfilled, (state, action) => {
-        console.log(action.payload)
+        console.log(action.payload);
         state.seats = action.payload;
       });
 
@@ -199,5 +210,7 @@ const moviesSlice = createSlice({
     // });
   },
 });
+
+export const { selecting_movies, unSelecting_movie } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

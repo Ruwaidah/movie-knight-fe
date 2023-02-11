@@ -139,12 +139,12 @@ function Profile(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    movieList: state.movieList,
-    fetchingData: state.fetchingData,
-    userData: state.userData,
-    userInfo: state.userInfo,
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     movieList: state.movieList,
+//     fetchingData: state.fetchingData,
+//     userData: state.userData,
+//     userInfo: state.userInfo,
+//   };
+// };
 export default Profile;
