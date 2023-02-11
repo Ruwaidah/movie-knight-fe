@@ -183,31 +183,7 @@ const moviesSlice = createSlice({
       });
 
     // ************************************* GET MOVIE DETAIL
-    // .addCase(getMovieDetail.pending, (state, action) => {
-    //   state.gettingMoviesLoading = true;
-    // })
-    // .addCase(getMovieDetail.fulfilled, (state, action) => {
-    //   state.gettingMoviesLoading = false;
-    //   state.movieDetails = action.payload;
-    // })
-    // .addCase(getMovieDetail.rejected, (state, action) => {
-    //   state.gettingMoviesLoading = false;
-    //   state.error = action.payload;
-    // })
-    // .addCase(getShowTimesRsults.pending, (state) => {
-    //   state.gettingMoviesLoading = true;
-    //   state.error = "";
-    // })
-    // .addCase(getShowTimesRsults.fulfilled, (state, action) => {
-    //   state.gettingMoviesLoading = false;
-    //   state.error = "";
-    //   state.results = action.payload[0];
-    //   state.theatres = action.payload[1];
-    // })
-    // .addCase(getShowTimesRsults.rejected, (state, action) => {
-    //   state.gettingMoviesLoading = false;
-    //   state.error = action.payloa;
-    // });
+
   },
 });
 
