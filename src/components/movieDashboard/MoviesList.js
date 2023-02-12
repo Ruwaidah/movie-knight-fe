@@ -24,6 +24,7 @@ export function MoviesList(props) {
   useEffect(() => {
     dispatch(makeCall(zipCode));
   }, [zipCode]);
+  console.log(allMovies)
 
   //   const toggleMenu = () => {
   //     document.getElementById("filter").classList.remove("toggle-menu2");
@@ -50,12 +51,8 @@ export function MoviesList(props) {
           //   onClick={toggleMenu}
         >
           {allMovies.map((movie) => {
-            return (
-              <MovieCard
-                movie={movie}
-                key={movie.tmsId}
-              />
-            );
+            // movie.isactive = false
+            return <MovieCard movie={movie} key={movie.tmsId} />;
           })}
         </div>
       )}

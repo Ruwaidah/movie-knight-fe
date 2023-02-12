@@ -12,7 +12,6 @@ import SeatsCard from "./SeatsCard.js";
 
 const Seatchart = (props) => {
   const { seats } = useSelector((state) => state.movies);
-  console.log(seats);
   const dispatch = useDispatch();
   // const [seats, setSeats] = useState([]);
   const navigate = useNavigate();
