@@ -12,7 +12,7 @@ function MovieCard(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { NextButton } = useSelector((state) => state.users);
-  const { movieSelect } = useSelector((state) => state.movies);
+  const { movieSelect, allMovies } = useSelector((state) => state.movies);
   let path;
   const [active, setActive] = useState(false);
   if (props.movie.ratings)
@@ -25,8 +25,6 @@ function MovieCard(props) {
     dispatch(toggleNext());
   }
 
-  console.log(process.env.REACT_APP_API_KEY);
-
   const checkError = (e) => {
     e.target.src = process.env.REACT_APP_NO_IMAGE;
   };
@@ -37,17 +35,27 @@ function MovieCard(props) {
     setActive(false);
   }
 
-  useEffect(() => {
-    // console.log(active);
-    if (active) dispatch(selecting_movies([...movieSelect, props.movie]));
-    else {
-      const filter = movieSelect.filter((movie1) => {
-        return movie1.title !== props.movie.title;
-      });
+  const toggleSelecting = () => {
+    console.log("Wefwfw");
+    console.log(movieSelect)
 
-      dispatch(unSelecting_movie(filter));
+    if (Object.keys(movieSelect).length < 3) {
+      dispatch(selecting_movies({ index: props.i, movie: props.movie }));
     }
-  }, [active]);
+  };
+
+
+  // useEffect(() => {
+  // console.log(active);
+  // if (active) dispatch(selecting_movies([...movieSelect, props.movie]));
+  // else {
+  //   const filter = movieSelect.filter((movie1) => {
+  //     return movie1.title !== props.movie.title;
+  //   });
+
+  // dispatch(unSelecting_movie(filter));
+  // }
+  // }, [active]);
 
   if (movieSelect.length > 0 && NextButton == false) {
     dispatch(toggleNext());
@@ -64,6 +72,7 @@ function MovieCard(props) {
           <img
             src={`http://developer.tmsimg.com/${props.movie.preferredImage.uri}/&api_key=${process.env.REACT_APP_API_KEY}`}
             onError={checkError}
+            onClick={toggleSelecting}
           />
 
           <p
