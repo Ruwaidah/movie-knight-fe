@@ -25,11 +25,11 @@ function MovieCard(props) {
     dispatch(toggleNext());
   }
 
-  console.log(process.env.REACT_APP_API_KEY)
+  console.log(process.env.REACT_APP_API_KEY);
 
   const checkError = (e) => {
-    e.target.src = "https://res.cloudinary.com/donsjzduw/image/upload/v1580504817/hfjrl5wbkiugy4y0gmqu.jpg"
-  }
+    e.target.src = process.env.REACT_APP_NO_IMAGE;
+  };
 
   const toggleMovie = () => {};
 
@@ -55,8 +55,6 @@ function MovieCard(props) {
     dispatch(toggleNextOff());
   }
 
-  // console.log("movie", props.movie.preferredImage.uri);
-
   if (props.movie)
     return (
       <div className="movie-card">
@@ -65,9 +63,9 @@ function MovieCard(props) {
         >
           <img
             src={`http://developer.tmsimg.com/${props.movie.preferredImage.uri}/&api_key=${process.env.REACT_APP_API_KEY}`}
-            onError = {checkError}
-          /> 
-     
+            onError={checkError}
+          />
+
           <p
             onClick={() => navigate(`/details/${path}`)}
             className={active ? "movie-title-enable" : "movie-title-disable"}
