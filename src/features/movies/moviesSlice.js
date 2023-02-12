@@ -6,7 +6,7 @@ const initialState = {
   gettingUpMoviesLoading: false,
   comingMovies: [],
   allMovies: [],
-  movieSelect: [],
+  movieSelect: {},
   seats: [],
 };
 function checkDate() {
@@ -140,7 +140,11 @@ const moviesSlice = createSlice({
   initialState,
   reducers: {
     selecting_movies: (state, action) => {
-      state.movieSelect = [...state.movieSelect, action.payload];
+      if (state.movieSelect[action.payload.index]) {
+        delete state.movieSelect[action.payload.index]
+      } else {
+        state.movieSelect[action.payload.index] = action.payload.movie;
+      }
     },
     unSelecting_movie: (state, action) => {
       state.movieSelect = action.payload;
@@ -157,8 +161,7 @@ const moviesSlice = createSlice({
         state.gettingMoviesLoading = false;
         state.allMovies = action.payload;
       })
-      .addCase(makeCall.rejected, (state, action) => {
-      })
+      .addCase(makeCall.rejected, (state, action) => {})
 
       // **************************** GET UP COMING MOVIES
       .addCase(getUpcomingMovies.pending, (state) => {
@@ -168,15 +171,13 @@ const moviesSlice = createSlice({
         state.gettingUpMoviesLoading = false;
         state.comingMovies = action.payload;
       })
-      .addCase(getUpcomingMovies.rejected, (state, action) => {
-      })
+      .addCase(getUpcomingMovies.rejected, (state, action) => {})
       // .addCase(getSeats.pending, (state) => {})
       .addCase(getSeats.fulfilled, (state, action) => {
         state.seats = action.payload;
       });
 
     // ************************************* GET MOVIE DETAIL
-
   },
 });
 
