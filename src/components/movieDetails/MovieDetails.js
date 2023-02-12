@@ -32,7 +32,6 @@ const MovieDetails = (props) => {
     dispatch(movieNext(props.location.state.movieSelect));
     navigate("/date");
   }
-  console.log(movie);
   function runtime(num) {
     let hours = Math.floor(num / 60);
     let minutes = num % 60;

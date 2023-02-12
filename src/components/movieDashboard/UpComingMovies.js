@@ -6,12 +6,10 @@ import { getUpcomingMovies } from "../../features/movies/moviesSlice.js";
 import Loading from "../Loading.js";
 
 function UpComingMovies() {
-  console.log("up coming movies")
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { comingMovies, gettingUpMoviesLoading } = useSelector((state) => state.movies);
   useEffect(() => {
-    console.log("useEfeect", dispatch(getUpcomingMovies()))
     dispatch(getUpcomingMovies());
     // axios
     //   .get(`http://localhost:5000/api/upcoming`)

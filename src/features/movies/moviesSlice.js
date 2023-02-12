@@ -39,15 +39,12 @@ export const makeCall = createAsyncThunk(
 export const getUpcomingMovies = createAsyncThunk(
   "get_up_coming_movies",
   async (data, thunkAPI) => {
-    console.log("geetttting");
     return await axiosWithAuth()
       .get(`/api/upcoming`)
       .then((respone) => {
-        console.log(respone);
         return respone.data;
       })
       .catch((err) => {
-        console.log(err);
         thunkAPI.rejectWithValue(err.respone);
       });
   }
@@ -100,7 +97,6 @@ export const getSeats = createAsyncThunk("getting_seats", (thunkAPI) => {
   return axiosWithAuth()
     .get("/api/seats")
     .then((respone) => {
-      console.log(respone.data);
       return respone.data;
     })
     .catch((errorr) => thunkAPI.rejectWithValue(errorr.respone));
@@ -162,7 +158,6 @@ const moviesSlice = createSlice({
         state.allMovies = action.payload;
       })
       .addCase(makeCall.rejected, (state, action) => {
-        console.log(action);
       })
 
       // **************************** GET UP COMING MOVIES
@@ -174,11 +169,9 @@ const moviesSlice = createSlice({
         state.comingMovies = action.payload;
       })
       .addCase(getUpcomingMovies.rejected, (state, action) => {
-        console.log(action);
       })
       // .addCase(getSeats.pending, (state) => {})
       .addCase(getSeats.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.seats = action.payload;
       });
 

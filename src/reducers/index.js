@@ -54,7 +54,6 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  console.log(action.type)
   switch (action.type) {
     //GOOGLE SIGN UP/
     case USER_SIGNING_GOOGLE:
@@ -64,7 +63,6 @@ const reducer = (state = initialState, action) => {
       };
 
     case USER_SIGNING_GOOGLE_SUCCESS:
-      console.log(action.payload.user.googleId)
       localStorage.setItem("googleId", action.payload.user.googleId);
       return {
         ...state,

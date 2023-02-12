@@ -22,18 +22,23 @@ function MovieCard(props) {
   function toggleClass() {
     const currentState = active;
     setActive(!currentState);
-    // setActive(!active);
     dispatch(toggleNext());
   }
 
-  console.log(movieSelect, props.movie);
-  console.log(active);
+  console.log(process.env.REACT_APP_API_KEY)
+
+  const checkError = (e) => {
+    e.target.src = "https://res.cloudinary.com/donsjzduw/image/upload/v1580504817/hfjrl5wbkiugy4y0gmqu.jpg"
+  }
+
+  const toggleMovie = () => {};
 
   function unSelectMovie() {
     setActive(false);
   }
 
   useEffect(() => {
+    // console.log(active);
     if (active) dispatch(selecting_movies([...movieSelect, props.movie]));
     else {
       const filter = movieSelect.filter((movie1) => {
@@ -50,6 +55,8 @@ function MovieCard(props) {
     dispatch(toggleNextOff());
   }
 
+  // console.log("movie", props.movie.preferredImage.uri);
+
   if (props.movie)
     return (
       <div className="movie-card">
@@ -57,10 +64,10 @@ function MovieCard(props) {
           className={active ? "movie-img-enable red-box" : "movie-img-disable "}
         >
           <img
-            src={props.movie.image}
-            alt={props.movie.title}
-            onClick={movieSelect.length == 3 ? unSelectMovie : toggleClass}
-          />
+            src={`http://developer.tmsimg.com/${props.movie.preferredImage.uri}/&api_key=${process.env.REACT_APP_API_KEY}`}
+            onError = {checkError}
+          /> 
+     
           <p
             onClick={() => navigate(`/details/${path}`)}
             className={active ? "movie-title-enable" : "movie-title-disable"}
