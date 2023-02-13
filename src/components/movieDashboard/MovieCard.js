@@ -12,38 +12,26 @@ function MovieCard(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { NextButton } = useSelector((state) => state.users);
-  const { movieSelect, allMovies } = useSelector((state) => state.movies);
+
+  const { movieSelect } = useSelector((state) => state.movies);
   let path;
-  // const [active, setActive] = useState(false);
+
+
   if (props.movie.ratings)
     path = `${props.movie.title}&rate=${props.movie.ratings[0].code}`;
   else path = props.movie.title;
-
-  // function toggleClass() {
-  //   const currentState = active;
-  //   setActive(!currentState);
-  //   dispatch(toggleNext());
-  // }
 
   const checkError = (e) => {
     e.target.src = process.env.REACT_APP_NO_IMAGE;
   };
 
-  // const toggleMovie = () => {};
-
-  // function unSelectMovie() {
-  //   setActive(false);
-  // }
-
   const toggleSelecting = () => {
-    // if (Object.keys(movieSelect).length < 3 ) {
     dispatch(selecting_movies({ index: props.i, movie: props.movie }));
-    // }
   };
 
-  useEffect(() => {
-    console.log(movieSelect);
-  }, [movieSelect]);
+  // useEffect(() => {
+  //   console.log(movieSelect);
+  // }, [movieSelect]);
 
   if (Object.keys(movieSelect).length > 0 && NextButton == false) {
     dispatch(toggleNext());
