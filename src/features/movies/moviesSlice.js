@@ -142,7 +142,7 @@ const moviesSlice = createSlice({
     selecting_movies: (state, action) => {
       if (state.movieSelect[action.payload.index]) {
         delete state.movieSelect[action.payload.index]
-      } else {
+      } else if (Object.keys(state.movieSelect).length < 3 ) {
         state.movieSelect[action.payload.index] = action.payload.movie;
       }
     },

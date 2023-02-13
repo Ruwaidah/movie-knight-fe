@@ -36,13 +36,14 @@ function MovieCard(props) {
   }
 
   const toggleSelecting = () => {
-    console.log("Wefwfw");
-    console.log(movieSelect)
-
-    if (Object.keys(movieSelect).length < 3) {
+    // if (Object.keys(movieSelect).length < 3 ) {
       dispatch(selecting_movies({ index: props.i, movie: props.movie }));
-    }
+    // }
   };
+
+  useEffect(() => {
+console.log(movieSelect)
+  },[movieSelect])
 
 
   // useEffect(() => {
@@ -67,7 +68,7 @@ function MovieCard(props) {
     return (
       <div className="movie-card">
         <div
-          className={active ? "movie-img-enable red-box" : "movie-img-disable "}
+          className={movieSelect[props.i] ? "movie-img-enable red-box" : "movie-img-disable "}
         >
           <img
             src={`http://developer.tmsimg.com/${props.movie.preferredImage.uri}/&api_key=${process.env.REACT_APP_API_KEY}`}
