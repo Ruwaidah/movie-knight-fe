@@ -16,7 +16,6 @@ function MovieCard(props) {
   const { movieSelect } = useSelector((state) => state.movies);
   let path;
 
-
   if (props.movie.ratings)
     path = `${props.movie.title}&rate=${props.movie.ratings[0].code}`;
   else path = props.movie.title;
@@ -29,15 +28,13 @@ function MovieCard(props) {
     dispatch(selecting_movies({ index: props.i, movie: props.movie }));
   };
 
-  // useEffect(() => {
-  //   console.log(movieSelect);
-  // }, [movieSelect]);
-
-  if (Object.keys(movieSelect).length > 0 && NextButton == false) {
-    dispatch(toggleNext());
-  } else if (Object.keys(movieSelect).length === 0 && NextButton == true) {
-    dispatch(toggleNextOff());
-  }
+  useEffect(() => {
+    if (Object.keys(movieSelect).length > 0 && NextButton == false) {
+      dispatch(toggleNext());
+    } else if (Object.keys(movieSelect).length === 0 && NextButton == true) {
+      dispatch(toggleNextOff());
+    }
+  }, [movieSelect]);
 
   if (props.movie)
     return (
