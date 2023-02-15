@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./dashboard.scss";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selecting_movies,
-  unSelecting_movie,
+  // unSelecting_movie,
 } from "../../features/movies/moviesSlice";
 import { toggleNext, toggleNextOff } from "../../features/users/usersSlice";
 
@@ -14,11 +14,13 @@ function MovieCard(props) {
   const { NextButton } = useSelector((state) => state.users);
 
   const { movieSelect } = useSelector((state) => state.movies);
-  let path;
+  // let path;
 
-  if (props.movie.ratings)
-    path = `${props.movie.title}&rate=${props.movie.ratings[0].code}`;
-  else path = props.movie.title;
+  // if (props.movie.ratings)
+  //   path = `${props.movie.title}&rate=${props.movie.ratings[0].code}`;
+  // else path = props.movie.title;
+
+  const path = props.movie.tmsId;
 
   const checkError = (e) => {
     e.target.src = process.env.REACT_APP_NO_IMAGE;
@@ -52,7 +54,7 @@ function MovieCard(props) {
             onClick={toggleSelecting}
           />
 
-          <p
+          {/* <p
             onClick={() => navigate(`/details/${path}`)}
             className={
               movieSelect[props.i]
@@ -61,7 +63,18 @@ function MovieCard(props) {
             }
           >
             {movieSelect[props.i] ? "View Details" : null}
-          </p>
+          </p> */}
+          <Link
+            to={`/details/${path}`}
+            className={
+              movieSelect[props.i]
+                ? "movie-title-enable"
+                : "movie-title-disable"
+            }
+          >
+            {" "}
+            {movieSelect[props.i] ? "View Details" : null}{" "}
+          </Link>
         </div>
         <p
           className={
