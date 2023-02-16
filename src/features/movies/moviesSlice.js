@@ -55,7 +55,7 @@ export const getMovieDetail = createAsyncThunk(
   "get_movies_detail",
   (movieId, thunkAPI) => {
     return axiosWithAuth()
-      .get(`/api/movies/moviedetails?movieid=${movieid}`)
+      .get(`/api/movies/moviedetails?movieid=${movieId}`)
       .then((respone) => respone.data)
       .catch((err) => thunkAPI.rejectWithValue(err.respone));
   }

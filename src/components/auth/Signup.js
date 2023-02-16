@@ -8,7 +8,7 @@ import { signUp, signUpGoogle } from "../../features/users/usersSlice.js";
 // import { withRouter } from "react-router-dom";
 
 //Oauth//
-import GoogleLogin, { GoogleLogout } from "react-google-login";
+// import GoogleLogin, { GoogleLogout } from "react-google-login";
 
 export function Signup(props) {
   const dispatch = useDispatch();
@@ -55,7 +55,7 @@ export function Signup(props) {
       <h4>Save your information for a faster checkout</h4>
 
       {/* Oauth */}
-      <div
+      {/* <div
         className="login-google"
         style={{ display: localStorage.token ? "none" : "block" }}
       >
@@ -66,7 +66,7 @@ export function Signup(props) {
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
         />
-      </div>
+      </div> */}
       {/* <div style={{ display: localStorage.token ? "block" : "none" }}>
         <GoogleLogout
           clientId="1058848707297-n2rl4b301ivq0gipo2pbenr80sa5mtp2.apps.googleusercontent.com"
