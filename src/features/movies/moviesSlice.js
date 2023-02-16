@@ -53,11 +53,9 @@ export const getUpcomingMovies = createAsyncThunk(
 // ************************************* GET MOVIE DETAIL
 export const getMovieDetail = createAsyncThunk(
   "get_movies_detail",
-  (movieName, thunkAPI) => {
+  (movieId, thunkAPI) => {
     return axiosWithAuth()
-      .post(`/api/movies/moviedetails`, {
-        title: `${movieName}`,
-      })
+      .get(`/api/movies/moviedetails?movieid=${movieid}`)
       .then((respone) => respone.data)
       .catch((err) => thunkAPI.rejectWithValue(err.respone));
   }
@@ -141,8 +139,8 @@ const moviesSlice = createSlice({
   reducers: {
     selecting_movies: (state, action) => {
       if (state.movieSelect[action.payload.index]) {
-        delete state.movieSelect[action.payload.index]
-      } else if (Object.keys(state.movieSelect).length < 3 ) {
+        delete state.movieSelect[action.payload.index];
+      } else if (Object.keys(state.movieSelect).length < 3) {
         state.movieSelect[action.payload.index] = action.payload.movie;
       }
     },
@@ -178,6 +176,7 @@ const moviesSlice = createSlice({
       });
 
     // ************************************* GET MOVIE DETAIL
+    // const getMovieById =
   },
 });
 
