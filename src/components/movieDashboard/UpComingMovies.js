@@ -1,4 +1,4 @@
-import  { useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,10 @@ import Loading from "../Loading.js";
 function UpComingMovies() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { comingMovies, gettingUpMoviesLoading } = useSelector((state) => state.movies);
+  const { comingMovies, gettingUpMoviesLoading } = useSelector(
+    (state) => state.movies
+  );
+
   useEffect(() => {
     dispatch(getUpcomingMovies());
     // axios
@@ -20,8 +23,11 @@ function UpComingMovies() {
     //   .catch((err) =>{
     //     console.log(err)
     //   })
-
   }, []);
+
+  const checkError = (e) => {
+    e.target.src = process.env.REACT_APP_NO_IMAGE;
+  };
 
   if (gettingUpMoviesLoading) return <Loading />;
 
@@ -39,10 +45,11 @@ function UpComingMovies() {
                     className="no-movie-poster"
                     src={`https://res.cloudinary.com/donsjzduw/image/upload/v1580504817/hfjrl5wbkiugy4y0gmqu.jpg`}
                   /> */}
-                  <img
-                    src={`http://image.tmdb.org/t/p/w185/${movie.poster_path}`}
-                    alt={movie.title}
-                  />
+                <img
+                  src={`http://image.tmdb.org/t/p/w185/${movie.poster_path}`}
+                  alt={movie.title}
+                  onError={checkError}
+                />
               </div>
               <p
                 onClick={() => navigate(`/details/${movie.title}`)}

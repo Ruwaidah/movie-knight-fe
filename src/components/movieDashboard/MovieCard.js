@@ -30,6 +30,12 @@ function MovieCard(props) {
     dispatch(selecting_movies({ index: props.i, movie: props.movie }));
   };
 
+  const isLoading = (e) => {
+    setTimeout(() => {
+      return;
+    }, 100);
+  };
+
   useEffect(() => {
     if (Object.keys(movieSelect).length > 0 && NextButton == false) {
       dispatch(toggleNext());
@@ -37,6 +43,10 @@ function MovieCard(props) {
       dispatch(toggleNextOff());
     }
   }, [movieSelect]);
+
+  const image_url = setTimeout(() => {
+    return `http://developer.tmsimg.com/${props.movie.preferredImage.uri}/&api_key=${process.env.REACT_APP_API_KEY}`;
+  }, 100);
 
   if (props.movie)
     return (
@@ -51,6 +61,7 @@ function MovieCard(props) {
           <img
             src={`http://developer.tmsimg.com/${props.movie.preferredImage.uri}/&api_key=${process.env.REACT_APP_API_KEY}`}
             onError={checkError}
+            onLoad={isLoading}
             onClick={toggleSelecting}
           />
 
