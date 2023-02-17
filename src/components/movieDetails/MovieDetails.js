@@ -142,7 +142,7 @@ const MovieDetails = (props) => {
                   <img
                     alt="no-image"
                     className="cast-img"
-                    src={`https://res.cloudinary.com/donsjzduw/image/upload/v1580504817/hfjrl5wbkiugy4y0gmqu.jpg`}
+                    // src={`https://res.cloudinary.com/donsjzduw/image/upload/v1580504817/hfjrl5wbkiugy4y0gmqu.jpg`}
                   />
                 ) : (
                   <img
@@ -166,7 +166,7 @@ const MovieDetails = (props) => {
                     <img
                       alt="no-image"
                       className="dir-img"
-                      src={`https://res.cloudinary.com/donsjzduw/image/upload/v1580504817/hfjrl5wbkiugy4y0gmqu.jpg`}
+                      // src={`https://res.cloudinary.com/donsjzduw/image/upload/v1580504817/hfjrl5wbkiugy4y0gmqu.jpg`}
                     />
                   ) : (
                     <img

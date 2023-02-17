@@ -25,9 +25,9 @@ function UpComingMovies() {
     //   })
   }, []);
 
-  const checkError = (e) => {
-    e.target.src = process.env.REACT_APP_NO_IMAGE;
-  };
+  // const checkError = (e) => {
+  //   e.target.src = process.env.REACT_APP_NO_IMAGE;
+  // };
 
   if (gettingUpMoviesLoading) return <Loading />;
 
@@ -48,7 +48,7 @@ function UpComingMovies() {
                 <img
                   src={`http://image.tmdb.org/t/p/w185/${movie.poster_path}`}
                   alt={movie.title}
-                  onError={checkError}
+                  // onError={checkError}
                 />
               </div>
               <p
