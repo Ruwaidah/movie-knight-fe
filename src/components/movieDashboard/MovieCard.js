@@ -68,8 +68,8 @@ function MovieCard(props) {
           <img
             // src={`http://developer.tmsimg.com/${props.movie.preferredImage.uri}&&api_key=${process.env.REACT_APP_API_KEY}`}
             src={image}
-            onError={checkError}
-            onLoad={isLoading}
+            // onError={checkError}
+            // onLoad={isLoading}
             onClick={toggleSelecting}
           />
 
