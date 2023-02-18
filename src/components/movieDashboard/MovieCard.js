@@ -11,6 +11,7 @@ import { toggleNext, toggleNextOff } from "../../features/users/usersSlice";
 function MovieCard(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [getimage, setGetiamge] = useState();
 
   const { NextButton } = useSelector((state) => state.users);
 
@@ -23,9 +24,14 @@ function MovieCard(props) {
 
   // const path = props.movie.tmsId;
   const path = props.movie.title;
+  useEffect(() => {
+    setTimeout(() => {
+      setGetiamge(props.movie.image);
+    },100)
+  }, [props.movie]);
 
-  console.log(path);
   const checkError = (e) => {
+    console.log(e);
     e.target.src = process.env.REACT_APP_NO_IMAGE;
   };
 
@@ -38,7 +44,6 @@ function MovieCard(props) {
   //     return;
   //   }, 100);
   // };
-  // console.log(props.movie.image, props.i)
 
   useEffect(() => {
     if (Object.keys(movieSelect).length > 0 && NextButton == false) {
@@ -60,7 +65,7 @@ function MovieCard(props) {
         >
           <img
             src={props.movie.image}
-            onError={checkError}
+            onError={(e) => checkError(e)}
             // onLoad={isLoading}
             onClick={toggleSelecting}
           />

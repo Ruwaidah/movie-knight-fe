@@ -30,6 +30,7 @@ export const makeCall = createAsyncThunk(
       // .get(`https://movieknight01.herokuapp.com/api/movies?zip=${zipcode}`)
       .get(`/api/movies?startDate=${date}&zip=${zipcode}`)
       .then((response) => {
+        console.log(response.data)
         return response.data;
       })
       .catch((error) => console.log(error));
@@ -175,9 +176,9 @@ const moviesSlice = createSlice({
       .addCase(getSeats.fulfilled, (state, action) => {
         state.seats = action.payload;
       })
-      .addCase(getMovieDetails.fulfilled, (state, action)=> {
-        state.movie = action.payload
-      })
+      .addCase(getMovieDetails.fulfilled, (state, action) => {
+        state.movie = action.payload;
+      });
 
     // ************************************* GET MOVIE DETAIL
     // const getMovieById =
