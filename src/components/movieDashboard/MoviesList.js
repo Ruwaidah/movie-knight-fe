@@ -25,7 +25,6 @@ export function MoviesList(props) {
     dispatch(makeCall(zipCode));
   }, [zipCode]);
 
-  console.log("get call");
 
   //   const toggleMenu = () => {
   //     document.getElementById("filter").classList.remove("toggle-menu2");

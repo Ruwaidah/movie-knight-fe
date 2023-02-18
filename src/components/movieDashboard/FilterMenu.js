@@ -13,7 +13,6 @@ function ZipSearch(props) {
   const submit = event => {
     event.preventDefault();
     props.setFilter(values);
-    console.log(props.filters);
   };
   const change = event => {
     setValues({ ...values, filter: event.target.value });
