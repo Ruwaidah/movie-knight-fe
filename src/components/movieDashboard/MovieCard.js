@@ -22,12 +22,12 @@ function MovieCard(props) {
   // else path = props.movie.title;
 
   // const path = props.movie.tmsId;
-    const path = props.movie.title;
+  const path = props.movie.title;
 
-console.log(path)
-  // const checkError = (e) => {
-  //   e.target.src = process.env.REACT_APP_NO_IMAGE;
-  // };
+  console.log(path);
+  const checkError = (e) => {
+    e.target.src = process.env.REACT_APP_NO_IMAGE;
+  };
 
   const toggleSelecting = () => {
     dispatch(selecting_movies({ index: props.i, movie: props.movie }));
@@ -60,7 +60,7 @@ console.log(path)
         >
           <img
             src={props.movie.image}
-            // onError={checkError}
+            onError={checkError}
             // onLoad={isLoading}
             onClick={toggleSelecting}
           />
