@@ -21,8 +21,10 @@ function MovieCard(props) {
   //   path = `${props.movie.title}&rate=${props.movie.ratings[0].code}`;
   // else path = props.movie.title;
 
-  const path = props.movie.tmsId;
+  // const path = props.movie.tmsId;
+    const path = props.movie.title;
 
+console.log(path)
   // const checkError = (e) => {
   //   e.target.src = process.env.REACT_APP_NO_IMAGE;
   // };
