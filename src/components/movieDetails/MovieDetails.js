@@ -20,16 +20,6 @@ const MovieDetails = (props) => {
 
   useEffect(() => {
     dispatch(getMovieDetails(params.movieId));
-    // axios
-    //   .post(`https://movieknight01.herokuapp.com/api/movies/moviedetails`, {
-    //     title: `${location.pathname.slice(9)}`,
-    //   })
-    //   .then((respone) => {
-    //     setMovie(respone.data);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   }, []);
   function DatePage() {
     dispatch(movieNext(props.location.state.movieSelect));
