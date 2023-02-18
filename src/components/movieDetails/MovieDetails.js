@@ -1,32 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import StarRatings from "react-star-ratings";
 import "react-circular-progressbar/dist/styles.css";
-import axios from "axios";
+import { getMovieDetails } from "../../features/movies/moviesSlice.js";
 import "./movieDetails.scss";
 import Loading from "../Loading.js";
 import ProgressBar from "../progress-nav-bars/ProgressBar.js";
 import { movieNext } from "../../features/users/usersSlice";
 
 const MovieDetails = (props) => {
+  const params = useParams();
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const rating = location.pathname.split("=");
-  const [movie, setMovie] = useState();
+  const { movie } = useSelector((state) => state.movies);
+  console.log("movie details", params);
 
   useEffect(() => {
-    axios
-      .post(`https://movieknight01.herokuapp.com/api/movies/moviedetails`, {
-        title: `${location.pathname.slice(9)}`,
-      })
-      .then((respone) => {
-        setMovie(respone.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    dispatch(getMovieDetails(params.movieId));
   }, []);
   function DatePage() {
     dispatch(movieNext(props.location.state.movieSelect));

@@ -7,6 +7,7 @@ const initialState = {
   comingMovies: [],
   allMovies: [],
   movieSelect: {},
+  movie: null,
   seats: [],
 };
 function checkDate() {
@@ -51,11 +52,11 @@ export const getUpcomingMovies = createAsyncThunk(
 );
 
 // ************************************* GET MOVIE DETAIL
-export const getMovieDetail = createAsyncThunk(
+export const getMovieDetails = createAsyncThunk(
   "get_movies_detail",
   (movieId, thunkAPI) => {
     return axiosWithAuth()
-      .get(`/api/movies/moviedetails?movieid=${movieId}`)
+      .get(`/api/movies/moviedetails/${movieId}`)
       .then((respone) => respone.data)
       .catch((err) => thunkAPI.rejectWithValue(err.respone));
   }
@@ -173,7 +174,10 @@ const moviesSlice = createSlice({
       // .addCase(getSeats.pending, (state) => {})
       .addCase(getSeats.fulfilled, (state, action) => {
         state.seats = action.payload;
-      });
+      })
+      .addCase(getMovieDetails.fulfilled, (state, action)=> {
+        state.movie = action.payload
+      })
 
     // ************************************* GET MOVIE DETAIL
     // const getMovieById =

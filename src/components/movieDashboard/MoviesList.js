@@ -15,26 +15,22 @@ export function MoviesList(props) {
   );
   const [searchParam, setSearchParam] = useState("");
   const [zipCode, setZipCode] = useState(47712);
-  const [fetchMovies, setFetchmovie] = useState(true)
   const [filters, setFilter] = useState({
     filter: "",
     rating: ["1", "2", "3", "4", "5"],
     mature: ["G", "PG", "PG-13", "R"],
   });
 
-
   useEffect(() => {
-setFetchmovie(false);
-console.log(fetchMovies)
-dispatch(makeCall(zipCode));
+    dispatch(makeCall(zipCode));
   }, [zipCode]);
 
-  console.log("get call")
+  console.log("get call");
 
   //   const toggleMenu = () => {
   //     document.getElementById("filter").classList.remove("toggle-menu2");
   //   };
-  if (!allMovies) return <p>Loading....</p>
+  if (!allMovies) return <p>Loading....</p>;
   return (
     <div className="movielist-component">
       <ZipSearch setZipCode={setZipCode} />
