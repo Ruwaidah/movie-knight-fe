@@ -11,7 +11,6 @@ import { toggleNext, toggleNextOff } from "../../features/users/usersSlice";
 function MovieCard(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [image, setImage] = useState();
 
   const { NextButton } = useSelector((state) => state.users);
 
@@ -24,19 +23,20 @@ function MovieCard(props) {
 
   const path = props.movie.tmsId;
 
-  const checkError = (e) => {
-    e.target.src = process.env.REACT_APP_NO_IMAGE;
-  };
+  // const checkError = (e) => {
+  //   e.target.src = process.env.REACT_APP_NO_IMAGE;
+  // };
 
   const toggleSelecting = () => {
     dispatch(selecting_movies({ index: props.i, movie: props.movie }));
   };
 
-  const isLoading = (e) => {
-    setTimeout(() => {
-      return;
-    }, 100);
-  };
+  // const isLoading = (e) => {
+  //   setTimeout(() => {
+  //     return;
+  //   }, 100);
+  // };
+  // console.log(props.movie.image, props.i)
 
   useEffect(() => {
     if (Object.keys(movieSelect).length > 0 && NextButton == false) {
@@ -45,15 +45,6 @@ function MovieCard(props) {
       dispatch(toggleNextOff());
     }
   }, [movieSelect]);
-
-  useEffect(() => {
-    const url_image = props.movie.preferredImage.uri;
-    console.log(url_image);
-    const uri = `http://developer.tmsimg.com/${
-      url_image.split("?")[0]
-    }?api_key=${process.env.REACT_APP_API_KEY}`;
-    setImage(uri);
-  }, [props.movie]);
 
   if (props.movie)
     return (
@@ -66,8 +57,7 @@ function MovieCard(props) {
           }
         >
           <img
-            // src={`http://developer.tmsimg.com/${props.movie.preferredImage.uri}&&api_key=${process.env.REACT_APP_API_KEY}`}
-            src={image}
+            src={props.movie.image}
             // onError={checkError}
             // onLoad={isLoading}
             onClick={toggleSelecting}
