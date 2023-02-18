@@ -16,10 +16,9 @@ const MovieDetails = (props) => {
   const navigate = useNavigate();
   const rating = location.pathname.split("=");
   const { movie } = useSelector((state) => state.movies);
-  console.log("movie details", params);
 
   useEffect(() => {
-    dispatch(getMovieDetails(params.movieId));
+    dispatch(getMovieDetails(params.movieTitle));
   }, []);
   function DatePage() {
     dispatch(movieNext(props.location.state.movieSelect));

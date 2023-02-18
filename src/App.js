@@ -38,7 +38,7 @@ function App() {
 
         <Route path="/signup" element={<Signup />} />
 
-        <Route path="/details/:movieId" element={<MovieDetails />} />
+        <Route path="/details/:movieTitle" element={<MovieDetails />} />
 
         <Route path="/details" element={<MovieDetails />} />
 
