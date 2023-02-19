@@ -16,7 +16,7 @@ const TimePicker = () => {
     dispatch(timeSelectAction(timeSelect));
     navigate("/tickets");
   }
-
+console.log(timeSelect)
   return (
     <div className="timePicker-com">
       <div className="time-container">

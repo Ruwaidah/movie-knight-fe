@@ -45,7 +45,7 @@ const DayCard = (props) => {
     <button
       data-testid="day-btn"
       className={active ? " day red-box" : "day"}
-      onClick={() => toggleClass()}
+      onClick={toggleClass}
     >
       {`${getday(props.index)[1]} - ${getday(props.index)[0]}`}
     </button>
