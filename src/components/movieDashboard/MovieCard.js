@@ -11,7 +11,6 @@ import { toggleNext, toggleNextOff } from "../../features/users/usersSlice";
 function MovieCard(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [getimage, setGetiamge] = useState();
 
   const { NextButton } = useSelector((state) => state.users);
 
@@ -24,11 +23,7 @@ function MovieCard(props) {
 
   // const path = props.movie.tmsId;
   const path = props.movie.title;
-  useEffect(() => {
-    setTimeout(() => {
-      setGetiamge(props.movie.image);
-    },100)
-  }, [props.movie]);
+
 
   const checkError = (e) => {
     console.log(e);
@@ -39,11 +34,6 @@ function MovieCard(props) {
     dispatch(selecting_movies({ index: props.i, movie: props.movie }));
   };
 
-  // const isLoading = (e) => {
-  //   setTimeout(() => {
-  //     return;
-  //   }, 100);
-  // };
 
   useEffect(() => {
     if (Object.keys(movieSelect).length > 0 && NextButton == false) {
