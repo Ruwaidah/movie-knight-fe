@@ -28,6 +28,7 @@ export const DatePicker = () => {
   ];
 
   console.log(movieSelect);
+  console.log(daySelect)
 
   function timePage() {
     dispatch(dayNext(daySelect));
