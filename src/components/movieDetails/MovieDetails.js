@@ -16,14 +16,14 @@ const MovieDetails = (props) => {
   const navigate = useNavigate();
   const rating = location.pathname.split("=");
   const { movie } = useSelector((state) => state.movies);
-
+  console.log(movie);
   useEffect(() => {
     dispatch(getMovieDetails(params.movieTitle));
   }, []);
-  function DatePage() {
-    dispatch(movieNext(props.location.state.movieSelect));
-    navigate("/date");
-  }
+  // function DatePage() {
+  //   dispatch(movieNext(props.location.state.movieSelect));
+  //   navigate("/date");
+  // }
   function runtime(num) {
     let hours = Math.floor(num / 60);
     let minutes = num % 60;
@@ -49,7 +49,7 @@ const MovieDetails = (props) => {
           {!movie.videos[0] ? (
             <iframe
               src={`https://www.youtube.com/embed/dQw4w9WgXcQ`}
-              frameBorder="0"
+              // frameBorder="0"
               allow="autoplay; encrypted-media"
               allowFullScreen
               title="video"
@@ -57,7 +57,7 @@ const MovieDetails = (props) => {
           ) : (
             <iframe
               src={`https://www.youtube.com/embed/${movie.videos[0].key}`}
-              frameBorder="0"
+              // frameBorder="0"
               allow="autoplay; encrypted-media"
               allowFullScreen
               title="video"
@@ -104,9 +104,8 @@ const MovieDetails = (props) => {
               starSpacing="1px"
               name="rating"
             />
-            <button className="get-tickets-button" onClick={DatePage}>
-              Get Tickets
-            </button>
+            {/* <button className="get-tickets-button" onClick={DatePage}> */}
+            <button className="get-tickets-button">Get Tickets</button>
           </div>
         </div>
 
@@ -134,13 +133,13 @@ const MovieDetails = (props) => {
                   <img
                     alt="no-image"
                     className="cast-img"
-                    // src={`https://res.cloudinary.com/donsjzduw/image/upload/v1580504817/hfjrl5wbkiugy4y0gmqu.jpg`}
+                    src={process.env.REACT_APP_NO_IMAGE}
                   />
                 ) : (
                   <img
                     alt={people.name}
                     className="cast-img"
-                    src={`http://image.tmdb.org/t/p/w185/${people.profile_path}`}
+                    src={`${process.env.REACT_APP_IMAGE_URL}${people.profile_path}`}
                   />
                 )}
                 <p>{people.name}</p>
@@ -158,13 +157,13 @@ const MovieDetails = (props) => {
                     <img
                       alt="no-image"
                       className="dir-img"
-                      // src={`https://res.cloudinary.com/donsjzduw/image/upload/v1580504817/hfjrl5wbkiugy4y0gmqu.jpg`}
+                      src={process.env.REACT_APP_NO_IMAGE}
                     />
                   ) : (
                     <img
                       alt={people.name}
                       className="dir-img"
-                      src={`http://image.tmdb.org/t/p/w185/${people.profile_path}`}
+                      src={`${process.env.REACT_APP_IMAGE_URL}${people.profile_path}`}
                     />
                   )}
                 </>

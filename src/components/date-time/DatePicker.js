@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DayCard from "./DayCard";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { dayNext } from "../../features/users/usersSlice";
@@ -7,9 +8,14 @@ import ProgressBar from "../progress-nav-bars/ProgressBar.js";
 import "../../App.scss";
 
 export const DatePicker = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [daySelect, setDaySelect] = useState([]);
+  const { movieSelect } = useSelector((state) => state.movies);
+
+  useEffect(() => {
+    if (Object.keys(movieSelect).length < 1) navigate("/");
+  }, []);
 
   const days = [
     "Monday",
@@ -18,8 +24,10 @@ export const DatePicker = () => {
     "Thursday",
     "Friday",
     "Saturday",
-    "Sunday"
+    "Sunday",
   ];
+
+  console.log(movieSelect);
 
   function timePage() {
     dispatch(dayNext(daySelect));
@@ -61,4 +69,4 @@ export const DatePicker = () => {
   );
 };
 
-export default DatePicker
+export default DatePicker;

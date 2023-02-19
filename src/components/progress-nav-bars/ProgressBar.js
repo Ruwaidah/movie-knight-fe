@@ -19,7 +19,7 @@ const ProgressBar = () => {
       <div className="inside-dev">
         <img
           id="search"
-          className={(state) =>
+          className={
             pathname.slice(1, 8) === "details" ? "icons brightness" : "icons"
           }
           src={searchmovie}
@@ -29,52 +29,52 @@ const ProgressBar = () => {
         <div className="progress-line" />
         <img
           id="calendar"
-          className={(state) =>
+          className={
             pathname.slice(1) === "date" ? "icons brightness" : "icons"
           }
           src={calendar}
           alt="calendar logo"
-          onClick={() => navigate("/date")}
+          // onClick={() => navigate("/date")}
         />
         <div className="progress-line" />
         <img
           id="clock"
-          className={(state) =>
+          className={
             pathname.slice(1) === "time" ? "icons brightness" : "icons"
           }
           src={clock}
           alt="clock logo"
-          onClick={() => navigate("/time")}
+          // onClick={() => navigate("/time")}
         />
         <div className="progress-line" />
         <img
           id="tickets"
-          className={(state) =>
+          className={
             pathname.slice(1) === "tickets" ? "icons brightness" : "icons"
           }
           src={tickets}
           alt="tickets logo"
-          onClick={() => navigate("/tickets")}
+          // onClick={() => navigate("/tickets")}
         />
         <div className="progress-line" />
         <img
           id="chair"
-          className={(state) =>
+          className={
             pathname.slice(1) === "seats" ? "icons brightness" : "icons"
           }
           src={chair}
           alt="chair logo"
-          onClick={() => navigate("/seats")}
+          // onClick={() => navigate("/seats")}
         />
         <div className="progress-line" />
         <img
           id="movieslate"
-          className={(state) =>
+          className={
             pathname.slice(1) === "showtime" ? "icons brightness" : "icons"
           }
           src={movieslate}
           alt="movieslate logo"
-          onClick={() => navigate("/showtime")}
+          // onClick={() => navigate("/showtime")}
         />
         <div className="progress-line" />
         <img className="icons" src={cart} alt="cart logo" />
