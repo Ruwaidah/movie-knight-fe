@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./showtime.scss";
-import { getUserById } from "../../features/users/usersSlice";
-import { getShowTimesRsults } from "../../features/movies/moviesSlice";
+// import { getUserById } from "../../features/users/usersSlice";
+// import { getShowTimesRsults } from "../../features/movies/moviesSlice";
 import Loading from "../Loading.js";
 import TheatresCard from "./TheatresCard.js";
 import TimesCard from "./TimesCard.js";
@@ -12,27 +12,35 @@ const Showtime = () => {
   const [active, setActive] = useState(false);
   const dispatch = useDispatch();
   const {
-    MovieSelects,
     results,
     fetchingData,
     daySelects,
     timeSelects,
     seatsSelects,
     ticketsNumber,
-  } = useSelector((state) => state.users);
-  let movies = MovieSelects.map((movie) => movie.tmsId);
+  } = useSelector((state) => state.movies);
+  const { movieSelect } = useSelector((state) => state.movies);
+  console.log(movieSelect);
+
+  console.log(daySelects,timeSelects,seatsSelects,ticketsNumber)
+console.log("t",ticketsNumber)
   useEffect(() => {
-    dispatch(getUserById());
-    dispatch(
-      getShowTimesRsults({
-        movies: movies,
-        days: daySelects,
-        times: timeSelects,
-        seats: seatsSelects,
-        tickets: ticketsNumber,
-      })
-    );
+
+
   }, []);
+  // let movies = MovieSelects.map((movie) => movie.tmsId);
+  // useEffect(() => {
+  //   dispatch(getUserById());
+  //   dispatch(
+  //     getShowTimesRsults({
+  //       movies: movies,
+  //       days: daySelects,
+  //       times: timeSelects,
+  //       seats: seatsSelects,
+  //       tickets: ticketsNumber,
+  //     })
+  //   );
+  // }, []);
 
   if (fetchingData) return <Loading />;
 
@@ -40,7 +48,7 @@ const Showtime = () => {
     <div className="showtime-card">
       <h3 className="text">Your matches</h3>
       {results.map((movieslist, index) => {
-        let movie = MovieSelects.filter((mo) => mo.tmsId == movieslist.id);
+        let movie = movieSelect.filter((mo) => mo.tmsId == movieslist.id);
         if (movie.length > 0)
           return (
             <div key={movieslist.id}>
@@ -157,19 +165,5 @@ function runTime(str) {
   let min = num.substring(2, 4);
   return `${hours}h ${min}m`;
 }
-
-const mapStateToProps = (state) => {
-  return {
-    fetchingData: state.fetchingData,
-    MovieSelects: state.MovieSelects,
-    daySelects: state.daySelects,
-    ticketsNumber: state.ticketsNumber,
-    seatsSelects: state.seatsSelects,
-    timeSelects: state.timeSelects,
-    results: state.results,
-    theatres: state.theatres,
-    error: state.error,
-  };
-};
 
 export default Showtime;

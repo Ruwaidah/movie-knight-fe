@@ -7,7 +7,7 @@ import "./seatChart.scss";
 import Loading from "../Loading";
 import screen from "../images/screen.svg";
 import ProgressBar from "../progress-nav-bars/ProgressBar.js";
-import { seatsArea } from "../../features/users/usersSlice";
+import { seatsArea } from "../../features/movies/moviesSlice";
 import SeatsCard from "./SeatsCard.js";
 
 const Seatchart = (props) => {

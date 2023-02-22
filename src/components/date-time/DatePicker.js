@@ -3,7 +3,7 @@ import DayCard from "./DayCard";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { dayNext } from "../../features/users/usersSlice";
+import { dayNext } from "../../features/movies/moviesSlice.js";
 import ProgressBar from "../progress-nav-bars/ProgressBar.js";
 import "../../App.scss";
 

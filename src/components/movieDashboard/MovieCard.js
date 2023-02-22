@@ -4,7 +4,6 @@ import { useNavigate, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selecting_movies,
-  // unSelecting_movie,
 } from "../../features/movies/moviesSlice";
 import { toggleNext, toggleNextOff } from "../../features/users/usersSlice";
 
