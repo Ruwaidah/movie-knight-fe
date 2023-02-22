@@ -9,6 +9,12 @@ const initialState = {
   movieSelect: {},
   movie: null,
   seats: [],
+  daySelects: [],
+  ticketsNumber: 0,
+  seatsSelects: [],
+  timeSelects: [],
+  ticket: false,
+  results:[]
 };
 function checkDate() {
   var day = new Date();
@@ -30,7 +36,7 @@ export const makeCall = createAsyncThunk(
       // .get(`https://movieknight01.herokuapp.com/api/movies?zip=${zipcode}`)
       .get(`/api/movies?startDate=${date}&zip=${zipcode}`)
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         return response.data;
       })
       .catch((error) => console.log(error));
@@ -146,8 +152,20 @@ const moviesSlice = createSlice({
         state.movieSelect[action.payload.index] = action.payload.movie;
       }
     },
-    unSelecting_movie: (state, action) => {
-      state.movieSelect = action.payload;
+    dayNext: (state, action) => {
+      state.daySelects = action.payload;
+    },
+    ticketsNum: (state, action) => {
+      state.ticketsNumber = action.payload;
+    },
+    // ********************************* SEAT SELECT
+    seatsArea: (state, action) => {
+      state.seatsSelects = action.payload;
+    },
+
+    // ********************************** TIME SELECT
+    timeSelectAction: (state, action) => {
+      state.timeSelects = action.payload;
     },
   },
 
@@ -185,6 +203,12 @@ const moviesSlice = createSlice({
   },
 });
 
-export const { selecting_movies, unSelecting_movie } = moviesSlice.actions;
+export const {
+  selecting_movies,
+  dayNext,
+  timeSelectAction,
+  ticketsNum,
+  seatsArea,
+} = moviesSlice.actions;
 
 export default moviesSlice.reducer;

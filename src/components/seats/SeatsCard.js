@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./seatChart.scss";
-// import { connect } from 'react-redux'
 // import { seatsArea } from '../../actions/index.js'
 
 function SeatsCard(props) {
@@ -123,14 +122,4 @@ function SeatsCard(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    MovieSelects: state.MovieSelects,
-    daySelect: state.daySelect,
-    ticketsNumber: state.ticketsNumber,
-    seatsSelects: state.seatsSelects,
-  };
-};
-
-// export default connect(mapStateToProps, { seatsArea })(SeatsCard);
 export default SeatsCard;

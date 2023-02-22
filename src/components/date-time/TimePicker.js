@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import TimeCard from "./TimeCard";
 import ProgressBar from "../progress-nav-bars/ProgressBar.js";
-import { timeSelectAction } from "../../features/users/usersSlice";
+import { timeSelectAction } from "../../features/movies/moviesSlice.js";
 
 const TimePicker = () => {
   const navigate = useNavigate();

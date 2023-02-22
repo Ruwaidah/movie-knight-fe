@@ -1,16 +1,18 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import "./tickets.scss";
 import { useNavigate } from "react-router-dom";
-import { ticketsNum } from "../../features/users/usersSlice";
+import { ticketsNum } from "../../features/movies/moviesSlice.js";
 import ProgressBar from "../progress-nav-bars/ProgressBar.js";
 
 const Tickets = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [ticket, setTicket] = useState(1);
   const [active, setActive] = useState(true);
 
   function seatPage() {
-    ticketsNum(ticket);
+    dispatch(ticketsNum(ticket));
     navigate("/seats");
   }
 
@@ -76,5 +78,4 @@ const Tickets = () => {
   );
 };
 
-
-export default Tickets
+export default Tickets;
