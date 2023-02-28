@@ -27,8 +27,7 @@ export const DatePicker = () => {
     "Sunday",
   ];
 
-  console.log(movieSelect);
-  console.log(daySelect)
+  console.log(movieSelect)
 
   function timePage() {
     dispatch(dayNext(daySelect));
