@@ -20,10 +20,7 @@ const Showtime = () => {
     ticketsNumber,
   } = useSelector((state) => state.movies);
   const { movieSelect } = useSelector((state) => state.movies);
-  console.log(movieSelect);
 
-  console.log(daySelects,timeSelects,seatsSelects,ticketsNumber)
-console.log("t",ticketsNumber)
   useEffect(() => {
 
 

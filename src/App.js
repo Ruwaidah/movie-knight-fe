@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.scss";
 import { Route, Routes } from "react-router-dom";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import Dashboard from "./components/movieDashboard/Dashboard";
@@ -18,13 +18,13 @@ import Team from "./components/teams/Team";
 
 function App() {
   const [showMenu, setShowMenu] = useState(true);
-  const [oldPath, setOldPath] = useState("/");
+  // const [oldPath, setOldPath] = useState("/");
   return (
     <div className="App">
       <Nav
         setShowMenu={setShowMenu}
         showMenu={showMenu}
-        setOldPath={setOldPath}
+        // setOldPath={setOldPath}
       />
       <Routes>
         <Route path="/" element={<Dashboard />} />

@@ -14,18 +14,9 @@ function MovieCard(props) {
   const { NextButton } = useSelector((state) => state.users);
 
   const { movieSelect } = useSelector((state) => state.movies);
-  // let path;
-
-  // if (props.movie.ratings)
-  //   path = `${props.movie.title}&rate=${props.movie.ratings[0].code}`;
-  // else path = props.movie.title;
-
-  // const path = props.movie.tmsId;
   const path = props.movie.title;
 
-
   const checkError = (e) => {
-    console.log(e);
     e.target.src = process.env.REACT_APP_NO_IMAGE;
   };
 
