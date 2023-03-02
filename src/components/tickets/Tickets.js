@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./tickets.scss";
 import { useNavigate } from "react-router-dom";
 import { ticketsNum } from "../../features/movies/moviesSlice.js";
@@ -8,9 +8,16 @@ import ProgressBar from "../progress-nav-bars/ProgressBar.js";
 const Tickets = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const {movieSelect, timeSelects} = useSelector(state => state.movies)
   const [ticket, setTicket] = useState(1);
   const [active, setActive] = useState(true);
 
+useEffect(() =>{
+  if (Object.keys(movieSelect).length < 1) navigate("/");
+},[])
+
+
+  console.log(timeSelects)
   function seatPage() {
     dispatch(ticketsNum(ticket));
     navigate("/seats");

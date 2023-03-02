@@ -11,22 +11,24 @@ const TimePicker = () => {
   const { daySelects, movieSelect } = useSelector((state) => state.movies);
   const [timeSelect, setTimeSelect] = useState([]);
   const [updateMovieSeleted, setUpdateMovie] = useState(movieSelect);
-  console.log(daySelects);
+  let editeMovies = movieSelect;
   useEffect(() => {
     if (Object.keys(movieSelect).length < 1) navigate("/");
-    for (const key in movieSelect) {
-      const data = filtering(movieSelect[key].showtimes, daySelects);
-      setUpdateMovie({
-        ...updateMovieSeleted,
-        [key]: { ...updateMovieSeleted[key], ["showtimes"]: data },
-      });
-    }
   }, []);
-
+  console.log(movieSelect)
+  for (const key in movieSelect) {
+    editeMovies = {
+      ...editeMovies,
+      [key]: {
+        ...editeMovies[key],
+        showtimes: filtering(movieSelect[key].showtimes, daySelects),
+      },
+    };
+  }
+  console.log(editeMovies);
   const times = ["9-11 AM", "12-2 PM", "3-5 PM", "6-8 PM", "9-Midnight"];
-  // console.log(daySelects, movieSelect);
   function ticketsPage() {
-    dispatch(timeSelectAction({timeSelect,updateMovieSeleted}));
+    dispatch(timeSelectAction({ timeSelect, editeMovies }));
     navigate("/tickets");
   }
 
@@ -66,9 +68,9 @@ const TimePicker = () => {
 };
 
 function filtering(data, days) {
-  const showTimefilterDate = data.filter((date) =>
-    days.indexOf(date.dateTime.split("T")[0])
-  );
+  const showTimefilterDate = data.filter((date) => {
+    if (days.indexOf(date.dateTime.split("T")[0]) >= 0) return date;
+  });
   return showTimefilterDate;
 }
 

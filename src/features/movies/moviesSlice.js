@@ -14,7 +14,7 @@ const initialState = {
   seatsSelects: [],
   timeSelects: [],
   ticket: false,
-  results:[]
+  results: [],
 };
 function checkDate() {
   var day = new Date();
@@ -153,8 +153,7 @@ const moviesSlice = createSlice({
       }
     },
     dayNext: (state, action) => {
-      
-      state.daySelects = action.payload.map(day => day[2]);
+      state.daySelects = action.payload.map((day) => day[2]);
     },
     ticketsNum: (state, action) => {
       state.ticketsNumber = action.payload;
@@ -166,7 +165,7 @@ const moviesSlice = createSlice({
 
     // ********************************** TIME SELECT
     timeSelectAction: (state, action) => {
-      console.log(action.payload)
+      state.movieSelect = action.payload.updateMovieSeleted;
       state.timeSelects = action.payload;
     },
   },
