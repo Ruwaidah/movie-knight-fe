@@ -33,10 +33,8 @@ export const makeCall = createAsyncThunk(
   async (zipcode, thunkAPI) => {
     const date = checkDate();
     return await axiosWithAuth()
-      // .get(`https://movieknight01.herokuapp.com/api/movies?zip=${zipcode}`)
       .get(`/api/movies?startDate=${date}&zip=${zipcode}`)
       .then((response) => {
-        console.log(response.data);
         return response.data;
       })
       .catch((error) => console.log(error));
@@ -165,8 +163,8 @@ const moviesSlice = createSlice({
 
     // ********************************** TIME SELECT
     timeSelectAction: (state, action) => {
-      state.movieSelect = action.payload.updateMovieSeleted;
-      state.timeSelects = action.payload;
+      state.movieSelect = action.payload.editeMovies;
+      state.timeSelects = action.payload.timeSelect;
     },
   },
 

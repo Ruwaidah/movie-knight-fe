@@ -21,6 +21,7 @@ export function MoviesList(props) {
     mature: ["G", "PG", "PG-13", "R"],
   });
 
+
   useEffect(() => {
     dispatch(makeCall(zipCode));
   }, [zipCode]);
