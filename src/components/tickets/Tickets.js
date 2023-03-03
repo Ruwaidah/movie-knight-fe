@@ -8,21 +8,33 @@ import ProgressBar from "../progress-nav-bars/ProgressBar.js";
 const Tickets = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {movieSelect, timeSelects} = useSelector(state => state.movies)
+  const { movieSelect, timeSelects } = useSelector((state) => state.movies);
   const [ticket, setTicket] = useState(1);
   const [active, setActive] = useState(true);
+  let editeMovies = movieSelect;
+  useEffect(() => {
+    if (Object.keys(movieSelect).length < 1) navigate("/");
+  }, []);
 
-useEffect(() =>{
-  if (Object.keys(movieSelect).length < 1) navigate("/");
-},[])
+  const times = changingTimeFormat(timeSelects);
 
-
-  console.log(timeSelects)
+  for (const key in movieSelect) {
+    editeMovies = {
+      ...editeMovies,
+      [key]: {
+        ...editeMovies[key],
+        showtimes: movieSelect[key].showtimes.filter((time) =>
+          times.includes(Number(time.dateTime.split("T")[1].split(":")[0]))
+        ),
+      },
+    };
+  }
+  console.log(editeMovies);
   function seatPage() {
     dispatch(ticketsNum(ticket));
     navigate("/seats");
   }
-
+  // changingTimeFormat(timeSelects);
   function toggleClass() {
     const currentState = active;
     setActive(!currentState);
@@ -84,5 +96,20 @@ useEffect(() =>{
     </div>
   );
 };
+
+function changingTimeFormat(times) {
+  let timeFormat = [];
+  times.map((time) => {
+    for (let i = 0; i < 3; i++) {
+      if (time.includes("AM")) timeFormat.push(Number(time.split("-")[0]) + i);
+      else if (time.includes("PM")) {
+        if (time.split("-")[0] == 12)
+          timeFormat.push(Number(time.split("-")[0]) + i);
+        else timeFormat.push(Number(time.split("-")[0]) + i + 12);
+      } else timeFormat.push(21 + i);
+    }
+  });
+  return timeFormat;
+}
 
 export default Tickets;

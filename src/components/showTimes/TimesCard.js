@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { connect } from 'react-redux'
-// import { withRouter } from 'react-router-dom'
 import "./showtime.scss";
 
 const TimesCard = (props) => {
-    const navigate = useNavigate()
-  const {
-    fetchingData,
-    MovieSelects,
-    daySelects,
-    ticketsNumber,
-    seatsSelects,
-    timeSelects,
-    results,
-  } = useSelector((state) => state.users);
+  const navigate = useNavigate();
+  // const {
+  //   fetchingData,
+  //   MovieSelects,
+  //   daySelects,
+  //   ticketsNumber,
+  //   seatsSelects,
+  //   timeSelects,
+  //   results,
+  // } = useSelector((state) => state.users);
   const [isSelect, setIsSelect] = useState({
     clicked: false,
   });
@@ -69,18 +67,5 @@ const TimesCard = (props) => {
     </>
   );
 };
-// const mapStateToProps = (state) => {
-//   return {
-//     fetchingData: state.fetchingData,
-//     MovieSelects: state.MovieSelects,
-//     daySelects: state.daySelects,
-//     ticketsNumber: state.ticketsNumber,
-//     seatsSelects: state.seatsSelects,
-//     timeSelects: state.timeSelects,
-//     results: state.results,
-//   };
-// };
-
-// export default connect(mapStateToProps)(withRouter(TimesCard));
 
 export default TimesCard;

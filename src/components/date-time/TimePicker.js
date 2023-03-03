@@ -10,12 +10,11 @@ const TimePicker = () => {
   const dispatch = useDispatch();
   const { daySelects, movieSelect } = useSelector((state) => state.movies);
   const [timeSelect, setTimeSelect] = useState([]);
-  const [updateMovieSeleted, setUpdateMovie] = useState(movieSelect);
   let editeMovies = movieSelect;
   useEffect(() => {
     if (Object.keys(movieSelect).length < 1) navigate("/");
   }, []);
-  console.log(movieSelect)
+
   for (const key in movieSelect) {
     editeMovies = {
       ...editeMovies,
@@ -25,7 +24,6 @@ const TimePicker = () => {
       },
     };
   }
-  console.log(editeMovies);
   const times = ["9-11 AM", "12-2 PM", "3-5 PM", "6-8 PM", "9-Midnight"];
   function ticketsPage() {
     dispatch(timeSelectAction({ timeSelect, editeMovies }));
@@ -36,7 +34,6 @@ const TimePicker = () => {
     <div className="timePicker-com">
       <div className="time-container">
         <h2 className="question">What time would you like to go?</h2>
-
         <div className="days">
           {times.map((time, i) => {
             return (

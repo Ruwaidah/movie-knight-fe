@@ -12,7 +12,6 @@ export const DatePicker = () => {
   const dispatch = useDispatch();
   const [daySelect, setDaySelect] = useState([]);
   const { movieSelect } = useSelector((state) => state.movies);
-
   useEffect(() => {
     if (Object.keys(movieSelect).length < 1) navigate("/");
   }, []);
@@ -27,7 +26,6 @@ export const DatePicker = () => {
     "Sunday",
   ];
 
-  console.log(movieSelect)
 
   function timePage() {
     dispatch(dayNext(daySelect));
