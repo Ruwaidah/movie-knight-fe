@@ -10,10 +10,9 @@ import ProgressBar from "../progress-nav-bars/ProgressBar.js";
 import { seatsArea } from "../../features/movies/moviesSlice";
 import SeatsCard from "./SeatsCard.js";
 
-const Seatchart = (props) => {
-  const { seats } = useSelector((state) => state.movies);
+const Seatchart = () => {
+  const { seats, movieSelect } = useSelector((state) => state.movies);
   const dispatch = useDispatch();
-  // const [seats, setSeats] = useState([]);
   const navigate = useNavigate();
   const [seatsSelect, setSeatSelect] = useState({
     front: [],
@@ -24,11 +23,12 @@ const Seatchart = (props) => {
   });
 
   useEffect(() => {
+    if (Object.keys(movieSelect).length < 1) navigate("/");
     dispatch(getSeats());
   }, []);
 
   function showtimePage() {
-    seatsArea(seatsSelect);
+    dispatch(seatsArea(seatsSelect));
     navigate("/showtime");
   }
 

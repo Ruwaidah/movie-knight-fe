@@ -158,7 +158,8 @@ const moviesSlice = createSlice({
     },
     // ********************************* SEAT SELECT
     seatsArea: (state, action) => {
-      state.seatsSelects = action.payload;
+      state.seatsSelects = action.payload.ticket;
+      state.movieSelect = action.payload.editeMovies
     },
 
     // ********************************** TIME SELECT
