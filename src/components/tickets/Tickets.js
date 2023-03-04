@@ -17,7 +17,6 @@ const Tickets = () => {
   }, []);
 
   const times = changingTimeFormat(timeSelects);
-
   for (const key in movieSelect) {
     editeMovies = {
       ...editeMovies,
@@ -29,17 +28,16 @@ const Tickets = () => {
       },
     };
   }
-  console.log(editeMovies);
+
   function seatPage() {
-    dispatch(ticketsNum(ticket));
+    dispatch(ticketsNum({ ticket, editeMovies }));
     navigate("/seats");
   }
-  // changingTimeFormat(timeSelects);
+
   function toggleClass() {
     const currentState = active;
     setActive(!currentState);
   }
-
   return (
     <div className="tickets-com">
       <div className="ticket">
