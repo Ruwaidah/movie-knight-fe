@@ -154,12 +154,12 @@ const moviesSlice = createSlice({
       state.daySelects = action.payload.map((day) => day[2]);
     },
     ticketsNum: (state, action) => {
-      state.ticketsNumber = action.payload;
+      state.ticketsNumber = action.payload.ticket;
+      state.movieSelect = action.payload.editeMovies;
     },
     // ********************************* SEAT SELECT
     seatsArea: (state, action) => {
-      state.seatsSelects = action.payload.ticket;
-      state.movieSelect = action.payload.editeMovies
+      state.seatsSelects = action.payload;
     },
 
     // ********************************** TIME SELECT
