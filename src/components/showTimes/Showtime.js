@@ -6,14 +6,16 @@ import "./showtime.scss";
 import Loading from "../Loading.js";
 import TheatresCard from "./TheatresCard.js";
 import TimesCard from "./TimesCard.js";
+import { useNavigate } from "react-router-dom";
 import ProgressBar from "../progress-nav-bars/ProgressBar";
 
 const Showtime = () => {
   const [active, setActive] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const {
     results,
-    fetchingData,
+    // fetchingData,
     daySelects,
     timeSelects,
     seatsSelects,
@@ -23,6 +25,7 @@ const Showtime = () => {
 
   useEffect(() => {
 
+    if (Object.keys(movieSelect).length < 1) navigate("/");
 
   }, []);
   // let movies = MovieSelects.map((movie) => movie.tmsId);
@@ -39,8 +42,11 @@ const Showtime = () => {
   //   );
   // }, []);
 
-  if (fetchingData) return <Loading />;
-
+  // if (fetchingData) return <Loading />;
+  const moviesShow = Object.entries(movieSelect).map(([name, obj]) => ({
+    name,
+    ...obj,
+  }));
   return (
     <div className="showtime-card">
       <h3 className="text">Your matches</h3>
