@@ -1,91 +1,93 @@
-import React, { useState } from 'react'
-import './showtime.scss'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from "react";
+import "./showtime.scss";
+import { getTheatersAddress } from "../../features/movies/moviesSlice";
+import { useDispatch, useSelector } from "react-redux";
 // import { addfavoriteTheatres, delfavoriteTheatres, getUserById } from '../../actions/index.js'
-import { addfavoriteTheatres, delfavoriteTheatres } from '../../features/movies/moviesSlice'
-import { getUserById } from '../../features/users/usersSlice'
-import whiteheart from '../images/whiteheart.png'
-import redheart from '../images/redheart.png'
-import { useEffect } from 'react'
-import { displayImage } from '../TheatersImages'
+import {
+  addfavoriteTheatres,
+  delfavoriteTheatres,
+} from "../../features/movies/moviesSlice";
+import { getUserById } from "../../features/users/usersSlice";
+import whiteheart from "../images/whiteheart.png";
+import redheart from "../images/redheart.png";
+import { useEffect } from "react";
+import { displayImage } from "../TheatersImages";
+import axios from "axios";
 
-
-
-const TheatresCard = props => {
-    const dispatch = useDispatch();
-    const {theatres,fetchingData, userData, userInfo } =useSelector(state => state.users)
-    const [userTheater, setUserTheatre] = useState([])
-    const [isFavorite, setIsFavorite] = useState(false)
-    const [firstTime, setFirstTime] = useState(true)
-    // console.log(props.getTheater.location)
-    // const theatre = props.theatres.filter(thea => thea.theatreId == props.show.id)
-    const theatre = theatres.filter(thea => thea.theatreId == props.show.id)
-    useEffect(() => {
-        let theater
-        if (userInfo && firstTime) {
-            theater = userInfo.theatres.filter(theat => theat.theatreId == props.show.id)
-            setUserTheatre(theater)
-            setFirstTime(false)
-            if (theater.length > 0)
-                setIsFavorite(true)
-        }
-
-    }, [])
-
-
-    const addToFavorite = () => {
-        // props.addfavoriteTheatres(theatre)
-        dispatch(addfavoriteTheatres(theatre))
-        // props.getUserById()
-        setIsFavorite(true)
+const TheatresCard = (props) => {
+  const dispatch = useDispatch();
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [firstTime, setFirstTime] = useState(true);
+  const { theater } = useSelector((state) => state.movies);
+  const [theateraddress, settheatersaddress] = useState({});
+  // console.log(props.getTheater.location)
+  // const theatre = props.theatres.filter(thea => thea.theatreId == props.show.id)
+  // const theatre = theatres.filter((thea) => thea.theatreId == props.show.id);
+  // let theatersaddress = {};
+  useEffect(() => {
+    // let theater;
+    // if (userInfo && firstTime) {
+    //   theater = userInfo.theatres.filter(
+    //     (theat) => theat.theatreId == props.show.id
+    //   );
+    //   setUserTheatre(theater);
+    //   setFirstTime(false);
+    //   if (theater.length > 0) setIsFavorite(true);
+    // }
+    if (!theater[props.show.theatre.id]) {
+      console.log("getttting")
+      dispatch(getTheatersAddress(props.show.theatre.id));
+      // axios
+      //   .get(
+      //     `${process.env.REACT_APP_THEATER}${props.show.theatre.id}?api_key=${process.env.REACT_APP_API_KEY}`
+      //   )
+      //   .then((response) => {
+      //     console.log(response.data);
+      //     settheatersaddress({...theateraddress,[props.show.theatre.id]:response})
+      //   })
+      //   .catch((error) => console.log(error));
     }
+  }, []);
 
-    const delFromFavorite = () => {
-        // props.delfavoriteTheatres(props.show.id)
-        dispatch(delfavoriteTheatres(props.show.id))
-        // props.getUserById()
-        setIsFavorite(false)
-    }
+  const addToFavorite = () => {
+    // props.addfavoriteTheatres(theatre)
+    // dispatch(addfavoriteTheatres(theatre));
+    // props.getUserById()
+    setIsFavorite(true);
+  };
 
-    return (
-        <div className={props.ind > 0 ? "black-bg theatre" : 'theatre'}>
+  const delFromFavorite = () => {
+    // dispatch(delfavoriteTheatres(props.show.id));
+    setIsFavorite(false);
+  };
+  console.log(theater);
+  return (
+    <div className={props.ind > 0 ? "black-bg theatre" : "theatre"}>
+      <div className="all-theater-info">
+        <img
+          src={displayImage(props.show.theatre.name)}
+          className="theater-logo"
+          alt={props.show.theatre.name}
+        />
 
-            <div className='all-theater-info'>
+        <div className="theateraddress">
+          <h2 className="theatre-name">{props.show.theatre.name}</h2>
 
-                <img src={displayImage(props.show.theatre)} className='theater-logo' alt={props.show.theatre} />
-                    
-
-                <div className="theateraddress">
-                    <h2 className='theatre-name'>{props.show.theatre}</h2>
-
-                    <p>{`${theatre[0].location.address.street}, ${theatre[0].location.address.city}, ${theatre[0].location.address.state}, ${theatre[0].location.address.postalCode}`}</p>
-
-                </div>
-                
-            </div>
-                
-            {(localStorage.getItem("googleId") || localStorage.getItem("userId")) ?
-                <div className="hearticon">{isFavorite ? <img src={redheart} onClick={() => delFromFavorite()} /> :
-                    <img src={whiteheart} onClick={() => addToFavorite()} />}
-
-                </div> : null
-
-            }
-
-            
+          <p>{`${theater[props.show.theatre.id].location.address.street}, ${theater[props.show.theatre.id].location.address.city}, ${theater[props.show.theatre.id].location.address.state}, ${theater[props.show.theatre.id].location.address.postalCode}`}</p>
         </div>
-    )
+      </div>
 
+      {/* {localStorage.getItem("googleId") || localStorage.getItem("userId") ? (
+        <div className="hearticon">
+          {isFavorite ? (
+            <img src={redheart} onClick={() => delFromFavorite()} />
+          ) : (
+            <img src={whiteheart} onClick={() => addToFavorite()} />
+          )}
+        </div>
+      ) : null} */}
+    </div>
+  );
+};
 
-}
-// const mapStateToProps = state => {
-//     return {
-//         fetchingData: state.fetchingData,
-//         theatres: state.theatres,
-//         userData: state.userData,
-//         userInfo: state.userInfo
-//     };
-// };
-
-// export default connect(mapStateToProps, { addfavoriteTheatres, delfavoriteTheatres, getUserById })(TheatresCard);
-export default TheatresCard
+export default TheatresCard;

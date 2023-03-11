@@ -15,6 +15,7 @@ const initialState = {
   timeSelects: [],
   ticket: false,
   results: [],
+  theater: {},
 };
 function checkDate() {
   var day = new Date();
@@ -67,7 +68,18 @@ export const getMovieDetails = createAsyncThunk(
   }
 );
 
-// ************************************* SELETING MOVIES
+// ************************************* THEATERS ADDRESS
+export const getTheatersAddress = createAsyncThunk(
+  "get_theaters_address",
+  (theaterId, thunkAPI) => {
+    return axios
+      .get(
+        `${process.env.REACT_APP_THEATER}${theaterId}?api_key=${process.env.REACT_APP_API_KEY}`
+      )
+      .then((respone) => respone.data)
+      .catch((error) => console.log(error));
+  }
+);
 
 // ************************************* SHOWTIMES RESULT
 export const getShowTimesRsults = createAsyncThunk(
@@ -196,6 +208,11 @@ const moviesSlice = createSlice({
       })
       .addCase(getMovieDetails.fulfilled, (state, action) => {
         state.movie = action.payload;
+      })
+
+      // ************************************* THEATERS ADDRESS
+      .addCase(getTheatersAddress.fulfilled, (state, action) => {
+        state.theater[action.payload.theatreId] = action.payload;
       });
 
     // ************************************* GET MOVIE DETAIL

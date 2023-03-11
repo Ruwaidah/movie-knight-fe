@@ -33,8 +33,12 @@ const theaterImg = [
 
 
 export function displayImage(input){
+  // console.log(input)
     for(const test of theaterImg){
+      // console.log(test.theaterName, input)
+      // console.log( input.match(test.theaterName))
         if(input.match(test.theaterName)){
+          // console.log("yes", input)
             return test.img
         }else{
           console.log('nope')
