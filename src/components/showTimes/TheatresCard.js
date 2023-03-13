@@ -18,8 +18,8 @@ const TheatresCard = (props) => {
   const dispatch = useDispatch();
   const [isFavorite, setIsFavorite] = useState(false);
   const [firstTime, setFirstTime] = useState(true);
-  const { theater } = useSelector((state) => state.movies);
-  const [theateraddress, settheatersaddress] = useState({});
+  const { theater, isTheaters } = useSelector((state) => state.movies);
+  const [theateraddress, settheatersaddress] = useState();
   // console.log(props.getTheater.location)
   // const theatre = props.theatres.filter(thea => thea.theatreId == props.show.id)
   // const theatre = theatres.filter((thea) => thea.theatreId == props.show.id);
@@ -34,21 +34,28 @@ const TheatresCard = (props) => {
     //   setFirstTime(false);
     //   if (theater.length > 0) setIsFavorite(true);
     // }
-    if (!theater[props.show.theatre.id]) {
-      console.log("getttting")
-      dispatch(getTheatersAddress(props.show.theatre.id));
-      // axios
-      //   .get(
-      //     `${process.env.REACT_APP_THEATER}${props.show.theatre.id}?api_key=${process.env.REACT_APP_API_KEY}`
-      //   )
-      //   .then((response) => {
-      //     console.log(response.data);
-      //     settheatersaddress({...theateraddress,[props.show.theatre.id]:response})
-      //   })
-      //   .catch((error) => console.log(error));
-    }
+    // if (theater[props.show.theatre.id] = "undefined") {
+    console.log("getttting");
+    dispatch(getTheatersAddress(props.show.theatre.id));
+    // axios
+    //   .get(
+    //     `${process.env.REACT_APP_THEATER}${props.show.theatre.id}?api_key=${process.env.REACT_APP_API_KEY}`
+    //   )
+    //   .then((response) => {
+    //     // console.log(response.data);
+    //     settheatersaddress({
+    //       ...theateraddress,
+    //       [props.show.theatre.id]: response,
+    //     });
+    //   })
+    //   .catch((error) => console.log(error));
+    // }
+    // else {
+    //   console.log(theater[props.show.theatre.id])
+    // }
   }, []);
 
+  console.log(theater);
   const addToFavorite = () => {
     // props.addfavoriteTheatres(theatre)
     // dispatch(addfavoriteTheatres(theatre));
@@ -60,7 +67,13 @@ const TheatresCard = (props) => {
     // dispatch(delfavoriteTheatres(props.show.id));
     setIsFavorite(false);
   };
-  console.log(theater);
+  // console.log(props.show);
+  if (isTheaters || !theater[props.show.theatre.id])
+    return (
+      <div>
+        <p>Loading...</p>
+      </div>
+    );
   return (
     <div className={props.ind > 0 ? "black-bg theatre" : "theatre"}>
       <div className="all-theater-info">
@@ -73,7 +86,11 @@ const TheatresCard = (props) => {
         <div className="theateraddress">
           <h2 className="theatre-name">{props.show.theatre.name}</h2>
 
-          <p>{`${theater[props.show.theatre.id].location.address.street}, ${theater[props.show.theatre.id].location.address.city}, ${theater[props.show.theatre.id].location.address.state}, ${theater[props.show.theatre.id].location.address.postalCode}`}</p>
+          <p>{`${theater[props.show.theatre.id].location.address.street}, ${
+            theater[props.show.theatre.id].location.address.city
+          }, ${theater[props.show.theatre.id].location.address.state}, ${
+            theater[props.show.theatre.id].location.address.postalCode
+          }`}</p>
         </div>
       </div>
 

@@ -16,6 +16,7 @@ const initialState = {
   ticket: false,
   results: [],
   theater: {},
+  isTheaters: true,
 };
 function checkDate() {
   var day = new Date();
@@ -71,12 +72,14 @@ export const getMovieDetails = createAsyncThunk(
 // ************************************* THEATERS ADDRESS
 export const getTheatersAddress = createAsyncThunk(
   "get_theaters_address",
-  (theaterId, thunkAPI) => {
-    return axios
+  async (gettheaterId, thunkAPI) => {
+    return await axios
       .get(
-        `${process.env.REACT_APP_THEATER}${theaterId}?api_key=${process.env.REACT_APP_API_KEY}`
+        `${process.env.REACT_APP_THEATER}${gettheaterId}?api_key=${process.env.REACT_APP_API_KEY}`
       )
-      .then((respone) => respone.data)
+      .then((respone) => {
+        return respone.data;
+      })
       .catch((error) => console.log(error));
   }
 );
@@ -109,7 +112,7 @@ export const getShowTimesRsults = createAsyncThunk(
 );
 
 // ********************************** GETTING ALL SEATS
-export const getSeats = createAsyncThunk("getting_seats", (thunkAPI) => {
+export const getSeats = createAsyncThunk("getting_seats", (data, thunkAPI) => {
   return axiosWithAuth()
     .get("/api/seats")
     .then((respone) => {
@@ -211,8 +214,12 @@ const moviesSlice = createSlice({
       })
 
       // ************************************* THEATERS ADDRESS
+      .addCase(getTheatersAddress.pending, (state) => {
+        state.isTheaters = true;
+      })
       .addCase(getTheatersAddress.fulfilled, (state, action) => {
         state.theater[action.payload.theatreId] = action.payload;
+        state.isTheaters = false;
       });
 
     // ************************************* GET MOVIE DETAIL
