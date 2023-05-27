@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosWithAuth from "../../utils/axiosWithAuth";
 
 const initialState = {
-  results: [],
   movieList: [],
   userData: {},
   fetchingData: false,

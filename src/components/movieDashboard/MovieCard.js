@@ -21,7 +21,7 @@ function MovieCard(props) {
   };
 
   const toggleSelecting = () => {
-    dispatch(selecting_movies({ index: props.i, movie: props.movie }));
+    dispatch(selecting_movies({ index: props.i, movie: props.movie.tmsId }));
   };
 
 

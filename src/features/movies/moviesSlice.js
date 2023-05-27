@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import axiosWithAuth from "../../utils/axiosWithAuth";
+import { act } from "@testing-library/react";
 const initialState = {
   gettingMoviesLoading: false,
   gettingUpMoviesLoading: false,
@@ -14,9 +15,13 @@ const initialState = {
   seatsSelects: [],
   timeSelects: [],
   ticket: false,
-  results: [],
-  theater: {},
-  isTheaters: true,
+  results: null,
+  theatresInfo: null,
+  isLoading: false,
+  gettingResult: true,
+  // theater: {},
+  // isTheaters: true,
+  gettingTheaters: true,
 };
 function checkDate() {
   var day = new Date();
@@ -46,7 +51,7 @@ export const makeCall = createAsyncThunk(
 // ************************************* GET UPCOMING MOVIES
 export const getUpcomingMovies = createAsyncThunk(
   "get_up_coming_movies",
-  async (data, thunkAPI) => {
+  async (thunkAPI) => {
     return await axiosWithAuth()
       .get(`/api/upcoming`)
       .then((respone) => {
@@ -61,7 +66,7 @@ export const getUpcomingMovies = createAsyncThunk(
 // ************************************* GET MOVIE DETAIL
 export const getMovieDetails = createAsyncThunk(
   "get_movies_detail",
-  (movieTitle, thunkAPI) => {
+  async (movieTitle, thunkAPI) => {
     return axiosWithAuth()
       .get(`/api/movies/moviedetails/${movieTitle}`)
       .then((respone) => respone.data)
@@ -69,44 +74,35 @@ export const getMovieDetails = createAsyncThunk(
   }
 );
 
-// ************************************* THEATERS ADDRESS
-export const getTheatersAddress = createAsyncThunk(
-  "get_theaters_address",
-  async (gettheaterId, thunkAPI) => {
-    return await axios
-      .get(
-        `${process.env.REACT_APP_THEATER}${gettheaterId}?api_key=${process.env.REACT_APP_API_KEY}`
-      )
-      .then((respone) => {
-        return respone.data;
-      })
-      .catch((error) => console.log(error));
-  }
-);
-
 // ************************************* SHOWTIMES RESULT
 export const getShowTimesRsults = createAsyncThunk(
   "get_showtime_result",
-  (data, thunkAPI) => {
-    let theatres = [];
+  async (data, thunkAPI) => {
+    console.log(data);
     const zipcode = localStorage.getItem("zip") || "47712";
-    return axiosWithAuth()
+    return await axiosWithAuth()
       .post(`/api/filtermovies?zip=${zipcode}`, data)
       .then((respone) => {
-        respone.data.map((movies) =>
-          movies.showtimes.map((theater) => theatres.push(theater.id))
-        );
-        theatres = theatres.filter((thea) => thea.length > 0);
-        if (theatres.length == 0) return [respone.data, theatres];
-        else {
-          axiosWithAuth()
-            .post("/api/theaters", { theatres: theatres })
-            .then((data1) => {
-              return [respone.data, data1.data];
-            })
-            .catch((err) => thunkAPI.rejectWithValue(err.respone));
-        }
+        console.log(respone);
+        return respone.data;
       })
+      .catch((err) => {
+        console.log(err);
+        thunkAPI.rejectWithValue(err);
+      });
+  }
+);
+
+// ************************************* THEATERS INFO =======================
+export const getTheatersInfo = createAsyncThunk(
+  "get_Theaters_Info",
+  (data, thunkAPI) => {
+    console.log("snjbisbib");
+    console.log(data);
+    if (data.length === 0) return { data: [] };
+    return axiosWithAuth()
+      .post("/api/theaters", { theatres: data })
+      .then((respone) => respone.data)
       .catch((err) => thunkAPI.rejectWithValue(err.respone));
   }
 );
@@ -178,7 +174,7 @@ const moviesSlice = createSlice({
 
     // ********************************** TIME SELECT
     timeSelectAction: (state, action) => {
-      state.timeSelects = action.payload.timeSelect;
+      state.timeSelects = action.payload;
     },
   },
 
@@ -211,17 +207,23 @@ const moviesSlice = createSlice({
         state.movie = action.payload;
       })
 
-      // ************************************* THEATERS ADDRESS
-      .addCase(getTheatersAddress.pending, (state) => {
-        state.isTheaters = true;
+      // ======================================= GET THEATERS INFO ================================
+      .addCase(getTheatersInfo.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.theatresInfo = action.payload;
+        state.gettingTheaters = false;
       })
-      .addCase(getTheatersAddress.fulfilled, (state, action) => {
-        state.theater[action.payload.theatreId] = action.payload;
-        state.isTheaters = false;
-      });
 
-    // ************************************* GET MOVIE DETAIL
-    // const getMovieById =
+      // ======================================= GET SHOW TIMES RESULT ================================
+      // .addCase(getShowTimesRsults.pending, (state) => (state.gettingResult = true))
+      .addCase(getShowTimesRsults.fulfilled, (state, action) => {
+        state.gettingResult = false;
+        state.results = action.payload;
+      })
+      .addCase(getShowTimesRsults.rejected, (state, action) =>
+        // state.isLoading = false
+        console.log("sfefe")
+      );
   },
 });
 

@@ -11,7 +11,7 @@ import { seatsArea } from "../../features/movies/moviesSlice";
 import SeatsCard from "./SeatsCard.js";
 
 const Seatchart = () => {
-  const { seats, movieSelect } = useSelector((state) => state.movies);
+  const { seats, movieSelect, gettingResult } = useSelector((state) => state.movies);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [seatsSelect, setSeatSelect] = useState({
@@ -21,7 +21,6 @@ const Seatchart = () => {
     right: [],
     end: [],
   });
-  console.log(movieSelect)
 
   useEffect(() => {
     if (Object.keys(movieSelect).length < 1) navigate("/");
@@ -33,7 +32,7 @@ const Seatchart = () => {
     navigate("/showtime");
   }
 
-  if (!seats) {
+  if (!seats || gettingResult ) {
     return <Loading />;
   } else {
     return (
