@@ -21,10 +21,11 @@ const Seatchart = () => {
     right: [],
     end: [],
   });
+  console.log(movieSelect)
 
   useEffect(() => {
     if (Object.keys(movieSelect).length < 1) navigate("/");
-    dispatch(getSeats());
+    dispatch(getSeats(movieSelect));
   }, []);
 
   function showtimePage() {

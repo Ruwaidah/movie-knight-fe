@@ -40,8 +40,9 @@ export function displayImage(input){
         if(input.match(test.theaterName)){
           // console.log("yes", input)
             return test.img
-        }else{
-          console.log('nope')
         }
+        // else{
+        //   console.log('nope',input, test.theaterName)
+        // }
     }
 }
