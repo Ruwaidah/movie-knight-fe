@@ -21,11 +21,9 @@ export function MoviesList(props) {
     mature: ["G", "PG", "PG-13", "R"],
   });
 
-console.log(allMovies)
   useEffect(() => {
     dispatch(makeCall(zipCode));
   }, [zipCode]);
-
 
   //   const toggleMenu = () => {
   //     document.getElementById("filter").classList.remove("toggle-menu2");

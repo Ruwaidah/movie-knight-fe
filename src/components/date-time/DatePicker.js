@@ -25,7 +25,6 @@ export const DatePicker = () => {
     "Saturday",
     "Sunday",
   ];
-
   function timePage() {
     dispatch(dayNext(daySelect));
     navigate("/time");
