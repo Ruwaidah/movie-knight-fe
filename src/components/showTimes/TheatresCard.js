@@ -1,18 +1,13 @@
 import React, { useState } from "react";
+import TimesCard from "./TimesCard";
 import "./showtime.scss";
 import { getTheatersAddress } from "../../features/movies/moviesSlice";
 import { useDispatch, useSelector } from "react-redux";
-// import { addfavoriteTheatres, delfavoriteTheatres, getUserById } from '../../actions/index.js'
-import {
-  addfavoriteTheatres,
-  delfavoriteTheatres,
-} from "../../features/movies/moviesSlice";
 import { getUserById } from "../../features/users/usersSlice";
 import whiteheart from "../images/whiteheart.png";
 import redheart from "../images/redheart.png";
 import { useEffect } from "react";
 import { displayImage } from "../TheatersImages";
-import axios from "axios";
 
 const TheatresCard = (props) => {
   const dispatch = useDispatch();
@@ -20,81 +15,57 @@ const TheatresCard = (props) => {
   const [firstTime, setFirstTime] = useState(true);
   const { theater, isTheaters } = useSelector((state) => state.movies);
   const [theateraddress, settheatersaddress] = useState();
-  // console.log(props.getTheater.location)
-  // const theatre = props.theatres.filter(thea => thea.theatreId == props.show.id)
-  // const theatre = theatres.filter((thea) => thea.theatreId == props.show.id);
-  // let theatersaddress = {};
+  let uniqueDate = {}
+
   useEffect(() => {
-    // let theater;
-    // if (userInfo && firstTime) {
-    //   theater = userInfo.theatres.filter(
-    //     (theat) => theat.theatreId == props.show.id
-    //   );
-    //   setUserTheatre(theater);
-    //   setFirstTime(false);
-    //   if (theater.length > 0) setIsFavorite(true);
-    // }
-    // if (theater[props.show.theatre.id] = "undefined") {
     console.log("getttting");
-    dispatch(getTheatersAddress(props.show.theatre.id));
-    // axios
-    //   .get(
-    //     `${process.env.REACT_APP_THEATER}${props.show.theatre.id}?api_key=${process.env.REACT_APP_API_KEY}`
-    //   )
-    //   .then((response) => {
-    //     // console.log(response.data);
-    //     settheatersaddress({
-    //       ...theateraddress,
-    //       [props.show.theatre.id]: response,
-    //     });
-    //   })
-    //   .catch((error) => console.log(error));
-    // }
-    // else {
-    //   console.log(theater[props.show.theatre.id])
-    // }
+    dispatch(getTheatersAddress(props.show[0]));
   }, []);
 
-  console.log(theater);
   const addToFavorite = () => {
-    // props.addfavoriteTheatres(theatre)
-    // dispatch(addfavoriteTheatres(theatre));
-    // props.getUserById()
     setIsFavorite(true);
   };
 
   const delFromFavorite = () => {
-    // dispatch(delfavoriteTheatres(props.show.id));
     setIsFavorite(false);
   };
-  // console.log(props.show);
-  if (isTheaters || !theater[props.show.theatre.id])
+  if (isTheaters || !theater[props.show[0]])
     return (
       <div>
         <p>Loading...</p>
       </div>
     );
   return (
-    <div className={props.ind > 0 ? "black-bg theatre" : "theatre"}>
-      <div className="all-theater-info">
-        <img
-          src={displayImage(props.show.theatre.name)}
-          className="theater-logo"
-          alt={props.show.theatre.name}
-        />
+    <div
+      // key={index}
+      className={
+        // index === moviesShow.length - 1
+        props.ind === props.movie.showtimes.length - 1
+          ? "lasttheater"
+          : // : null
+            null
+      }
+    >
+      <div className={props.ind > 0 ? "black-bg theatre" : "theatre"}>
+        <div className="all-theater-info">
+          <img
+            src={displayImage(theater[props.show[0]].name)}
+            className="theater-logo"
+            alt={theater[props.show[0]].name}
+          />
 
-        <div className="theateraddress">
-          <h2 className="theatre-name">{props.show.theatre.name}</h2>
+          <div className="theateraddress">
+            <h2 className="theatre-name">{theater[props.show[0]].name}</h2>
 
-          <p>{`${theater[props.show.theatre.id].location.address.street}, ${
-            theater[props.show.theatre.id].location.address.city
-          }, ${theater[props.show.theatre.id].location.address.state}, ${
-            theater[props.show.theatre.id].location.address.postalCode
-          }`}</p>
+            <p>{`${theater[props.show[0]].location.address.street}, ${
+              theater[props.show[0]].location.address.city
+            }, ${theater[props.show[0]].location.address.state}, ${
+              theater[props.show[0]].location.address.postalCode
+            }`}</p>
+          </div>
         </div>
-      </div>
 
-      {/* {localStorage.getItem("googleId") || localStorage.getItem("userId") ? (
+        {/* {localStorage.getItem("googleId") || localStorage.getItem("userId") ? (
         <div className="hearticon">
           {isFavorite ? (
             <img src={redheart} onClick={() => delFromFavorite()} />
@@ -103,6 +74,52 @@ const TheatresCard = (props) => {
           )}
         </div>
       ) : null} */}
+        {props.show[1].map((theater, index) => {
+          // console.log(theater)
+          uniqueDate[theater.dateTime.split("T")[0]] = theater.dateTime.split("T")[1]
+           return (
+            <>
+              {/* {ind == 1 ? <p className="options">Other Options</p> : null} */}
+              {/* <TheatresCard show={show} ind={ind} /> */}
+              <div
+                className={
+                  index > 0
+                    ? "black-bg whiteBo theatre-showtime"
+                    : "theatre-showtime"
+                }
+              >
+                <h5 className="sub-text">Standard format</h5>
+                <div className="day-time">
+                  <div className="day-div">
+                    <h4
+                      className={
+                        props.ind > 0 ? "white-text days-text" : "days-text"
+                      }
+                    >
+                      {theater.dateTime.split("T")[0]}
+                    </h4>
+                  </div>
+                  <div className="times-div">
+                    <TimesCard
+                      time={theater.dateTime.split("T")[1]}
+                      // setActive={setActive}
+                      // active={active}
+                    />
+                  </div>
+                </div>
+              </div>
+              {index === 0 ? (
+                props.ind == 0 ? (
+                  <p className="back-home">
+                    <span>Want to see different movie?</span>
+                  </p>
+                ) : null
+              ) : null}
+              {/* </div> */}
+            </>
+          );
+        })}
+      </div>
     </div>
   );
 };

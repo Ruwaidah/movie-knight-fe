@@ -8,29 +8,19 @@ import ProgressBar from "../progress-nav-bars/ProgressBar.js";
 const Tickets = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { movieSelect, timeSelects } = useSelector((state) => state.movies);
+  const { movieSelect } = useSelector((state) => state.movies);
   const [ticket, setTicket] = useState(1);
   const [active, setActive] = useState(true);
-  let editeMovies = movieSelect;
+
   useEffect(() => {
     if (Object.keys(movieSelect).length < 1) navigate("/");
   }, []);
 
-  const times = changingTimeFormat(timeSelects);
-  for (const key in movieSelect) {
-    editeMovies = {
-      ...editeMovies,
-      [key]: {
-        ...editeMovies[key],
-        showtimes: movieSelect[key].showtimes.filter((time) =>
-          times.includes(Number(time.dateTime.split("T")[1].split(":")[0]))
-        ),
-      },
-    };
-  }
+
+
 
   function seatPage() {
-    dispatch(ticketsNum({ ticket, editeMovies }));
+    dispatch(ticketsNum(ticket));
     navigate("/seats");
   }
 

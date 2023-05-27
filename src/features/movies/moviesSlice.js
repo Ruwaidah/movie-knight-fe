@@ -169,8 +169,7 @@ const moviesSlice = createSlice({
       state.daySelects = action.payload.map((day) => day[2]);
     },
     ticketsNum: (state, action) => {
-      state.ticketsNumber = action.payload.ticket;
-      state.movieSelect = action.payload.editeMovies;
+      state.ticketsNumber = action.payload;
     },
     // ********************************* SEAT SELECT
     seatsArea: (state, action) => {
@@ -179,7 +178,6 @@ const moviesSlice = createSlice({
 
     // ********************************** TIME SELECT
     timeSelectAction: (state, action) => {
-      state.movieSelect = action.payload.editeMovies;
       state.timeSelects = action.payload.timeSelect;
     },
   },

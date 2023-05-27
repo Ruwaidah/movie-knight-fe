@@ -8,25 +8,16 @@ import { timeSelectAction } from "../../features/movies/moviesSlice.js";
 const TimePicker = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { daySelects, movieSelect } = useSelector((state) => state.movies);
+  const {movieSelect} = useSelector(state => state.movies)
   const [timeSelect, setTimeSelect] = useState([]);
-  let editeMovies = movieSelect;
+
   useEffect(() => {
     if (Object.keys(movieSelect).length < 1) navigate("/");
   }, []);
 
-  for (const key in movieSelect) {
-    editeMovies = {
-      ...editeMovies,
-      [key]: {
-        ...editeMovies[key],
-        showtimes: filtering(movieSelect[key].showtimes, daySelects),
-      },
-    };
-  }
   const times = ["9-11 AM", "12-2 PM", "3-5 PM", "6-8 PM", "9-Midnight"];
   function ticketsPage() {
-    dispatch(timeSelectAction({ timeSelect, editeMovies }));
+    dispatch(timeSelectAction(timeSelect));
     navigate("/tickets");
   }
 

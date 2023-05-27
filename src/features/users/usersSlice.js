@@ -10,12 +10,6 @@ const initialState = {
   googleData: {},
   NextButton: false,
   movieDetails: {},
-  // MovieSelects: [],
-  // daySelects: [],
-  // ticketsNumber: 0,
-  // seatsSelects: [],
-  // timeSelects: [],
-  // ticket: false,
   theatres: [],
   userInfo: null,
 };
@@ -116,26 +110,8 @@ const userSlice = createSlice({
     toggleNextOff: (state) => {
       state.NextButton = false;
     },
-    // movieNext: (state, action) => {
-    //   state.MovieSelects = action.payload;
-    // },
-    // dayNext: (state, action) => {
-    //   state.daySelects = action.payload;
-    // },
-    // ticketsNum: (state, action) => {
-    //   state.ticketsNumber = action.payload;
-    // },
-    // // ************************************* SEAT SELECT
-    // seatsArea: (state, action) => {
-    //   state.seatsSelects = action.payload;
-    // },
-
-    // // ************************************** TIME SELECT
-    // timeSelectAction: (state, action) => {
-    //   state.timeSelects = action.payload;
-    // },
   },
-  extraReducers: (builder) =>  {
+  extraReducers: (builder) => {
     //************************************  USER LOGIN */
     builder
       .addCase(login.pending, (state) => {
@@ -228,10 +204,5 @@ const userSlice = createSlice({
 export const {
   toggleNext,
   toggleNextOff,
-  // movieNext,
-  // dayNext,
-  // ticketsNum,
-  // seatsArea,
-  // timeSelectAction,
 } = userSlice.actions;
 export default userSlice.reducer;
